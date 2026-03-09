@@ -17,8 +17,6 @@ O projeto está organizado por módulos de aprendizado:
 * **`Exercises/2.1-Classes-sem-relacionamentos/`**: Prática de lógica de objetos independentes.
 * Exemplos: `BolsaDeValores.java`, `TelefoneCelular.java`.
 
-
-
 ---
 
 ## 🚀 Conceitos Aplicados
@@ -35,7 +33,7 @@ Durante o desenvolvimento destes exercícios, foram aplicados os seguintes conce
 ## 🛠️ Tecnologias Utilizadas
 
 * **Linguagem:** Java 17+
-* **IDE recomendada:** NetBeans ou VS Code
+* **IDE recomendada:** NetBeans ou IntelliJ IDEA
 * **Controle de Versão:** Git
 
 ---
@@ -54,17 +52,3 @@ git clone https://github.com/SeuUsuario/sua-pasta-poo.git
 4. Execute o arquivo.
 
 ---
-
-## 📝 Notas de Aula (Dicas do Zé Rui)
-
-* Sempre limpe o buffer do `Scanner` após ler tipos numéricos se for ler uma `String` em seguida.
-* Lembre-se de usar `this.atributo` dentro dos métodos `fill()` para garantir que os dados sejam salvos no objeto correto.
-* Mantenha os atributos sempre como `private` para garantir o encapsulamento.
-
----
-
-### Dica para o GitHub:
-
-Se quiser deixar o README ainda mais "profissional", você pode adicionar o link para o seu LinkedIn ou uma pequena descrição sobre o seu curso logo abaixo do nome do professor.
-
-**Gostaria que eu adicionasse uma tabela específica relacionando cada arquivo ao exercício que ele resolve?**
