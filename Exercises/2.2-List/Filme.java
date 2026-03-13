@@ -89,7 +89,7 @@ public class Filme {
         System.out.println("2 - Remover filme");
         System.out.println("3 - Pesquisar filme (nome ou diretor)");        
         System.out.println("4 - Mostrar todos os filmes");        
-        System.out.println("6 - Sair");
+        System.out.println("5 - Sair");
         
         Scanner read = new Scanner(System.in);
         System.out.println("Escolha uma opcao: ");
@@ -129,8 +129,8 @@ public class Filme {
             System.out.println("Informe a posicao: ");
             int index = read.nextInt();
             
-            Music playingMusic = movieList.get(index);
-            playingMusic.print();
+            Movie playingMovie = movieList.get(index);
+            System.out.println(playingMovie);
         } else if(choice == 2) {
             System.out.println("Informe o nome do filme: ");
             String name = read.nextLine();
