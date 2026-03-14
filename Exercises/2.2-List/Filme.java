@@ -48,7 +48,7 @@ class Movie {
     public String toString() {
         return "Filme{" +
                 "titulo='" + title + '\'' +
-                ", artista='" + director + '\'' +
+                ", diretor='" + director + '\'' +
                 ", duracao=" + duration +
                 ", preco=" + price +
                 '}';
