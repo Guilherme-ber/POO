@@ -46,7 +46,7 @@ class Movie {
     // To string
     @Override
     public String toString() {
-        return "Musica{" +
+        return "Filme{" +
                 "titulo='" + title + '\'' +
                 ", artista='" + director + '\'' +
                 ", duracao=" + duration +
