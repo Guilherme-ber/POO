@@ -16,12 +16,14 @@ public class Ex2 {
         shelf.put("Abacate", 14.0);
         shelf.put("Peixe", 25.0);
         
+        // a)
         for(Map.Entry<String, Double> product : shelf.entrySet()) {
             System.out.println(product.getKey() + ": R$" + product.getValue());
         }
         
         System.out.println("-------------------------");
         
+        // b)
         shelf.put("Arroz", 12.00);
         for(Map.Entry<String, Double> product : shelf.entrySet()) {
             System.out.println(product.getKey() + ": R$" + product.getValue());
@@ -29,8 +31,13 @@ public class Ex2 {
         
         System.out.println("-------------------------");
         
-        shelf.containsKey("Banana") == true && shelf.remove("Banana");
-        
+        // c)
+        if(shelf.containsKey("Banana") == true) {
+            System.out.println("O produto Banana existe! Iniciando remocao.");
+            shelf.remove("Banana");
+        } else {
+            System.out.println("O produto Banana não existe na estante.");
+        }
         for(Map.Entry<String, Double> product : shelf.entrySet()) {
             System.out.println(product.getKey() + ": R$" + product.getValue());
         }
