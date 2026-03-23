@@ -5,7 +5,7 @@
 Este repositório contém a resolução dos exercícios práticos desenvolvidos durante as aulas de **Programação Orientada a Objetos** utilizando a linguagem **Java**. O foco principal é o aprendizado de conceitos fundamentais como encapsulamento, herança, polimorfismo e abstração.
 
 ## 🎥 Explicação do Exercício
-Assista ao vídeo explicativo clicando no link abaixo:
+Assista aos vídeos explicativos clicando no link abaixo:
 [Clique aqui para acessar a playlist](https://www.youtube.com/playlist?list=PLCX3Ww8diKnjj31WEWmscfYmnj-sLwTXO)
 
 ---
