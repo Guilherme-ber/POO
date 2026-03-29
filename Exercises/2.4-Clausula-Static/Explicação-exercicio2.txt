@@ -1,0 +1,6 @@
+A cláusula "static" pertence a classe, não ao objeto/instância. Isso significa que ao declararmos libraryName como "static", estamos dizendo que essa cláusula pertence a todos os objetos/instâncias, é algo comum entre eles.
+
+Nesse caso, todos os livros que forem instanciados, pertencerão à livraria "Leitura", pelo menos até que haja uma alteração.
+De forma mais técnica, todos os objetos criados apontarão para essa cláusula estática chamada "libraryName".
+
+Ao mudar esse atributo estático, você não mudará somente o livro 1 por exemplo, mas mudará toda a "fábrica". Ou seja, o livro 1, o livro 2, o livro 3 e assim por diante. Já que é um atributo comum entre eles, todos terão essa característica alterada.
