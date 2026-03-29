@@ -31,6 +31,7 @@ public class Produto {
         this.name = read.nextLine();
         System.out.println("Estoque: ");
         this.stock = read.nextInt();
+        read.nextLine();
     }
     
     // Getters and Setters

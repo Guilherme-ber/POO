@@ -62,10 +62,9 @@ public class Main {
                 case 6 -> {
                     System.out.println("Saindo...");
                     start = false;
-                    break;
                 }
                 default -> {
-                    System.out.println("Escolha uma opção válida (1 - 5).");
+                    System.out.println("Escolha uma opção válida (1 - 6).");
                 }
             }
         }
