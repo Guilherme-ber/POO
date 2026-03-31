@@ -17,6 +17,7 @@ public class Triangulo {
     @Override
     public String toString() {
         return "Triangulo: P1=" + p1 + ", P2=" + p2 + ", P3=" + p3 + 
+               "\nColinear: " + (isColinear(p1, p2, p3) ? "Sim" : "Nao") + 
                "\nArea: " + triangleArea(p1, p2, p3) + 
                "\nPerimetro: " + perimeter(p1, p2, p3) + 
                "\nTipo: " + type(p1, p2, p3);
