@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
 
-        System.out.println("=== Cadastro de Proprietário ===");
+        System.out.println("=== Cadastro de Proprietario ===");
         System.out.print("Nome: ");
         String nome = read.nextLine();
         System.out.print("CPF: ");
@@ -59,7 +59,7 @@ public class Main {
 
         // 4. Impressão Final usando a Cascata de toString
         System.out.println("\n========================================");
-        System.out.println("RESUMO DO PROPRIETÁRIO E SEUS BENS");
+        System.out.println("RESUMO DO PROPRIETARIO E SEUS BENS");
         System.out.println("========================================");
         System.out.println(proprietario.toString()); 
         
