@@ -45,7 +45,7 @@ public class Owner {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Proprietário: ").append(name).append("\n");
+        sb.append("Proprietario: ").append(name).append("\n");
         sb.append(this.carManager.toString());
         return sb.toString();
     }   
