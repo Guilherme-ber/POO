@@ -3,10 +3,6 @@ package com.mycompany.airport.manager.model;
 // Utils
 import java.util.Scanner;
 
-/**
- *
- * @author guilherme
- */
 public class FidelitySystem {
     private int accumulatedPoints;
     
@@ -18,16 +14,6 @@ public class FidelitySystem {
         this.accumulatedPoints = accumulatedPoints;
     }
     
-    // Add points
-    public void addPoints() {
-        if(accumulatedPoints >= 0) this.accumulatedPoints++;
-    }
-    
-    // Verify/Show points
-    public int getPoints() {
-        return accumulatedPoints;
-    }
-    
     // Show menu
     public void FidelitySystemMenu() {
         Scanner read = new Scanner(System.in);
@@ -35,31 +21,34 @@ public class FidelitySystem {
         
         do {
             System.out.println("--- Sistema de Fidelidade ---");
-            System.out.println("1 - Adicionar 1 ponto");
-            System.out.println("2 - Ver pontos");
+            System.out.println("1 - Adicionar 1 ponto ao usuário");
+            System.out.println("2 - Ver pontos do usuário");
             System.out.println("3 - Resgatar pontos");
             System.out.println("0 - Voltar");
             System.out.print("--> Escolha uma opção: ");
             option = read.nextInt();
+            read.nextLine();
         
             switch(option) {
                 case 1: 
-                    fs.addPoints();
+                    addPoints();
                     System.out.println("1 ponto adicionado!");
                     break;
 
                 case 2:
-                    System.out.print("Quantos pontos deseja resgatar? ");
-                    int pontos = read.nextInt();
+                    System.out.println("Pontos: " + getPoints());
+                    break;
 
-                    if (fs.redeemPoints(pontos)) {
+                case 3:
+                    System.out.print("Quantos pontos deseja resgatar? ");
+                    int points = read.nextInt();
+                    read.nextLine();
+
+                    if (redeemPoints(points)) {
                         System.out.println("Resgate realizado com sucesso!");
                     } else {
                         System.out.println("Não foi possível realizar o resgate.");
                     }
-                    break;
-
-                case 3:
                     break;
 
                 case 0:
@@ -70,6 +59,16 @@ public class FidelitySystem {
                     break;
             }
         } while (option != 0);
+    }
+    
+    // Add points
+    public void addPoints() {
+        if(accumulatedPoints >= 0) this.accumulatedPoints++;
+    }
+    
+    // Verify/Show points
+    public int getPoints() {
+        return accumulatedPoints;
     }
     
     // Rescue points

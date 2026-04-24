@@ -7,10 +7,6 @@ import com.mycompany.airport.manager.model.*;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- *
- * @author guilherme
- */
 public class FlightListManager {
     private List<Flight> flightList;
     
@@ -25,10 +21,10 @@ public class FlightListManager {
     }
 
     // Remove flight
-    public void removeFlight(int flightNum) {
-        if(flightNum >= 0) {
+    public void removeFlight(int flightNumber) {
+        if(flightNumber >= 0) {
             for(int i = 0; i < flightList.size(); i++) {
-                if(flightList.get(i).getFlightNum() == flightNum) {
+                if(flightList.get(i).getFlightNumber() == flightNumber) {
                     flightList.remove(i);
                     i--;
                     System.out.println("Voo removido!");
@@ -71,12 +67,12 @@ public class FlightListManager {
     
     // Start a flight
     public void startFlight(int flightNumber) {
-        if(flightNum >= 0) {
+        if(flightNumber >= 0) {
             for(int i = 0; i < flightList.size(); i++) {
                 Flight f = flightList.get(i);
-                if(f.getFlightNum() == flightNum) {
+                if(f.getFlightNumber() == flightNumber) {
                     f.setStatus("Voando");
-                    System.out.println("Status do voo: " + f.getFlightNum() + " alterado para .");
+                    System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para 'Voando'.");
                 }
             }
         } else {
@@ -86,12 +82,12 @@ public class FlightListManager {
     
     // End a flight
     public void endFlight(int flightNumber) {
-        if(flightNum >= 0) {
+        if(flightNumber >= 0) {
             for(int i = 0; i < flightList.size(); i++) {
                 Flight f = flightList.get(i);
-                if(f.getFlightNum() == flightNum) {
+                if(f.getFlightNumber() == flightNumber) {
                     f.setStatus("Voando");
-                    System.out.println("Status do voo: " + f.getFlightNum() + " alterado para .");
+                    System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para: 'Concluido'.");
                 }
             }
         } else {

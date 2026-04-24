@@ -2,37 +2,40 @@ package com.mycompany.airport.manager.model;
 
 // Manager
 import com.mycompany.airport.manager.manager.*;
+import java.util.ArrayList;
 
 // Utils
 import java.util.Scanner;
 
-/**
- *
- * @author guilherme
- */
 public class Passenger {
     private String name;
     private String cpf;
     private FidelitySystem fidelitySystem;
     
-    // Constructors
+    // Constructors and Copy method
     public Passenger() {
+        this.fidelitySystem = new FidelitySystem();
     }
     public Passenger(String name, String cpf) {
         this.name = name;
         this.cpf = cpf;
+        this.fidelitySystem = new FidelitySystem();
+    }
+    public void copy(Passenger other) {
+        this.name = other.getName();
+        this.cpf = other.getCpf();
+        this.fidelitySystem = other.getFidelitySystem();
     }
     
     // Fill passenger
     public void fill() {
         Scanner read = new Scanner(System.in);
         
-        System.out.println("----- Preencher o usuário -----");
+        System.out.println("-- Preencher o usuário --");
         System.out.println("Nome do passageiro: ");
         this.name = read.nextLine();
         System.out.println("CPF do passageiro: ");
-        this.name = read.nextLine();
-        read.nextLine();
+        this.cpf = read.nextLine();
     }
     
     // Show passenger
@@ -68,6 +71,9 @@ public class Passenger {
     }
     public String getCpf() {
         return cpf;
+    }
+    public FidelitySystem getFidelitySystem() {
+        return fidelitySystem;
     }
 
     public void setName(String name) {

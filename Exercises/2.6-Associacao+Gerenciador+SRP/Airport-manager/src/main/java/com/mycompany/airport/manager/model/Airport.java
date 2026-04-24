@@ -6,10 +6,6 @@ import com.mycompany.airport.manager.manager.*;
 // Utils
 import java.util.Scanner;
 
-/**
- *
- * @author guilherme
- */
 public class Airport {
     private String name;
     private String local;
@@ -39,6 +35,7 @@ public class Airport {
             System.out.println("0 - Voltar");
             System.out.print("--> Escolha uma opção: ");
             option = read.nextInt();
+            read.nextLine();
         
             switch(option) {
                 case 1:
@@ -71,6 +68,15 @@ public class Airport {
         } while (option != 0);
     }
     
+    // Fill
+    public void fill(Scanner read) {
+        System.out.println("-- Preencher informacoes do Aeroporto --");
+        System.out.println("Nome do Aeroporto: ");
+        this.name = read.nextLine();
+        System.out.println("Localizacao do Aeroporto: ");
+        this.local = read.nextLine();
+    }
+    
     // Add flight
     public void addFlight() {
         Scanner read = new Scanner(System.in);
@@ -88,6 +94,7 @@ public class Airport {
         
         System.out.println("Informe o número do voo para remocao: ");
         flightNumber = read.nextInt();
+        read.nextLine();
         
         flightListManager.removeFlight(flightNumber);
     }
@@ -109,6 +116,7 @@ public class Airport {
         
         System.out.println("Informe o número do voo para iniciar a decolagem: ");
         flightNumber = read.nextInt();
+        read.nextLine();
         
         System.out.println("Iniciando voo...");
         flightListManager.startFlight(flightNumber);
@@ -119,10 +127,11 @@ public class Airport {
         Scanner read = new Scanner(System.in);
         int flightNumber;
         
-        System.out.println("Informe o número do voo para finalizar a decolagem: ");
+        System.out.println("Informe o número do voo para finalizar a viagem: ");
         flightNumber = read.nextInt();
+        read.nextLine();
         
         System.out.println("Finalizando voo...");
-        flightListManager.startFlight(flightNumber);
+        flightListManager.endFlight(flightNumber);
     }
 }
