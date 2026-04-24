@@ -1,5 +1,8 @@
 package com.mycompany.airport.manager.model;
 
+// Manager
+import com.mycompany.airport.manager.manager.*;
+
 // Utils
 import java.util.Scanner;
 
@@ -8,6 +11,18 @@ import java.util.Scanner;
  * @author guilherme
  */
 public class Airport {
+    private String name;
+    private String local;
+    private FlightListManager flightListManager;
+    
+    // Constructors
+    public Airport() {
+    }
+    public Airport(String name, String local) {
+        this.name = name;
+        this.local = local;
+        this.flightListManager = new FlightListManager();
+    }
     
     // Show menu
     public void AirportMenu() {
@@ -27,19 +42,23 @@ public class Airport {
         
             switch(option) {
                 case 1:
+                    addFlight();
                     break;
 
                 case 2:
+                    removeFlight();
                     break;
 
                 case 3:
+                    listFlights();
                     break;
 
                 case 4:
+                    getFlightsWithPrejudice();
                     break;
 
                 case 5:
-                    System.out.println("Voo iniciado!");
+                    startFlight();
                     break;
 
                 case 0:
@@ -50,5 +69,60 @@ public class Airport {
                     break;
             }
         } while (option != 0);
+    }
+    
+    // Add flight
+    public void addFlight() {
+        Scanner read = new Scanner(System.in);
+        
+        Flight f = new Flight();
+        f.fill(read);
+        
+        flightListManager.addFlight(f);
+    }
+    
+    // Remove flight
+    public void removeFlight() {
+        Scanner read = new Scanner(System.in);
+        int flightNumber;
+        
+        System.out.println("Informe o número do voo para remocao: ");
+        flightNumber = read.nextInt();
+        
+        flightListManager.removeFlight(flightNumber);
+    }
+    
+    // List flights
+    public void listFlights() {
+        flightListManager.listFlights();
+    }
+    
+    // Flights with prejudice
+    public void getFlightsWithPrejudice() {
+        flightListManager.getFlightsWithPrejudice();
+    }
+    
+    // Start flight
+    public void startFlight() {
+        Scanner read = new Scanner(System.in);
+        int flightNumber;
+        
+        System.out.println("Informe o número do voo para iniciar a decolagem: ");
+        flightNumber = read.nextInt();
+        
+        System.out.println("Iniciando voo...");
+        flightListManager.startFlight(flightNumber);
+    }
+    
+    // End flight
+    public void endFlight() {
+        Scanner read = new Scanner(System.in);
+        int flightNumber;
+        
+        System.out.println("Informe o número do voo para finalizar a decolagem: ");
+        flightNumber = read.nextInt();
+        
+        System.out.println("Finalizando voo...");
+        flightListManager.startFlight(flightNumber);
     }
 }
