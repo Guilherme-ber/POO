@@ -39,68 +39,6 @@ public class Flight {
         this.flightStatus = other.getFlightStatus();
     }
     
-    // Show menu
-    public void FlightMenu(Scanner read) {
-        int option;
-        
-        do {
-            System.out.println("--- Gerenciar Voos ---");
-            System.out.println("1 - Adicionar passageiro");
-            System.out.println("2 - Remover passageiro");
-            System.out.println("3 - Adicionar escala");
-            System.out.println("4 - Remover escala");
-            System.out.println("5 - Alterar estado do voo");
-            System.out.println("6 - Checar capacidade do voo");
-            System.out.println("0 - Voltar");
-            System.out.print("--> Escolha uma opção: ");
-            option = read.nextInt();
-            read.nextLine();
-        
-            switch(option) {
-                case 1: 
-                    addPoints();
-                    System.out.println("1 ponto adicionado!");
-                    break;
-
-                case 2:
-                    System.out.println("Pontos: " + getPoints());
-                    break;
-
-                case 3:
-                    System.out.print("Quantos pontos deseja resgatar? ");
-                    int points = read.nextInt();
-                    read.nextLine();
-
-                    if (redeemPoints(points)) {
-                        System.out.println("Resgate realizado com sucesso!");
-                    } else {
-                        System.out.println("Não foi possível realizar o resgate.");
-                    }
-                    break;
-                    
-                case 4:
-                    
-                    break;
-
-                case 5:
-                    
-                    break;
-                    
-                case 6:
-                    
-                    break;
-
-
-                case 0:
-                    break;
-
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        } while (option != 0);
-    }
-    
     // Fill
     public void fill(Scanner read) {
         System.out.println("-- Preencher informacoes do Voo --");

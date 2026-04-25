@@ -20,54 +20,6 @@ public class Airport {
         this.flightListManager = new FlightListManager();
     }
     
-    // Show menu
-    public void AirportMenu() {
-        Scanner read = new Scanner(System.in);
-        int option;
-        
-        do {
-            System.out.println("--- Gerenciar Aeroporto ---");
-            System.out.println("1 - Adicionar voo");
-            System.out.println("2 - Remover voo");
-            System.out.println("3 - Listar voos");
-            System.out.println("4 - Voos com prejuizo");
-            System.out.println("5 - Iniciar um voo");
-            System.out.println("0 - Voltar");
-            System.out.print("--> Escolha uma opção: ");
-            option = read.nextInt();
-            read.nextLine();
-        
-            switch(option) {
-                case 1:
-                    addFlight();
-                    break;
-
-                case 2:
-                    removeFlight();
-                    break;
-
-                case 3:
-                    listFlights();
-                    break;
-
-                case 4:
-                    getFlightsWithPrejudice();
-                    break;
-
-                case 5:
-                    startFlight();
-                    break;
-
-                case 0:
-                    break;
-
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        } while (option != 0);
-    }
-    
     // Fill
     public void fill(Scanner read) {
         System.out.println("-- Preencher informacoes do Aeroporto --");
