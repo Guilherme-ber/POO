@@ -7,12 +7,19 @@ import com.mycompany.airport.manager.model.*;
 import java.util.Scanner;
 
 public class Main {
+    // Get flight number
+    public static int getFlightNumber(Scanner read) {
+        System.out.println("Informe o numero do voo para remocao: ");
+        int flightNumber = read.nextInt();
+        read.nextLine();
+        return flightNumber;
+    }
+
     // Main menu
     public static int menu(Scanner read) {
         System.out.println("----- Aeroporto | Bem-vindo! -----");
         System.out.println("1 - Gerenciar aeroporto");
         System.out.println("2 - Gerenciar voo");
-        System.out.println("3 - Acessar o sistema de fidelidade");
         System.out.println("0 - Sair do sistema");
         System.out.println("--> Escolha uma opcao: ");
         int option = read.nextInt();
@@ -21,7 +28,7 @@ public class Main {
     }
     
     // Airport menu
-    public static void airportMenu(Scanner read) {
+    public static void airportMenu(Scanner read, Airport airport) {
         int option;
         
         do {
@@ -32,31 +39,35 @@ public class Main {
             System.out.println("4 - Voos com prejuizo");
             System.out.println("5 - Iniciar um voo");
             System.out.println("0 - Voltar");
-            System.out.println("--> Escolha uma opção: ");
+            System.out.println("--> Escolha uma opcao: ");
             option = read.nextInt();
             read.nextLine();
         
             switch(option) {
-                case 1 -> addFlight();
+                case 1 -> {
+                    Flight f = new Flight();
+                    f.fill(read);
+                    airport.addFlight(f);
+                }
+                
+                case 2 -> airport.removeFlight(getFlightNumber(read));
+                    
+                case 3 -> airport.listFlights();
 
-                case 2 -> removeFlight();
-
-                case 3 -> listFlights();
-
-                case 4 -> getFlightsWithPrejudice();
-
-                case 5 -> startFlight();
-
+                case 4 -> System.out.println(airport.getFlightsWithPrejudice());
+                    
+                case 5 -> airport.startFlight(getFlightNumber(read));
+                    
                 case 0 -> {
                 }
 
-                default -> System.out.println("Opção inválida!");
+                default -> System.out.println("Opcao invalida!");
             }
         } while (option != 0);
     }
     
     // Flight menu
-    public static void flightMenu(Scanner read) {
+    public static void flightMenu(Scanner read, Airport airport) {
         int option;
         
         do {
@@ -68,66 +79,7 @@ public class Main {
             System.out.println("5 - Alterar estado do voo");
             System.out.println("6 - Checar capacidade do voo");
             System.out.println("0 - Voltar");
-            System.out.println("--> Escolha uma opção: ");
-            option = read.nextInt();
-            read.nextLine();
-        
-            switch(option) {
-                case 1: 
-                    addPoints();
-                    System.out.println("1 ponto adicionado!");
-                    break;
-
-                case 2:
-                    System.out.println("Pontos: " + getPoints());
-                    break;
-
-                case 3:
-                    System.out.print("Quantos pontos deseja resgatar? ");
-                    int points = read.nextInt();
-                    read.nextLine();
-
-                    if (redeemPoints(points)) {
-                        System.out.println("Resgate realizado com sucesso!");
-                    } else {
-                        System.out.println("Não foi possível realizar o resgate.");
-                    }
-                    break;
-                    
-                case 4:
-                    
-                    break;
-
-                case 5:
-                    
-                    break;
-                    
-                case 6:
-                    
-                    break;
-
-
-                case 0:
-                    break;
-
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        } while (option != 0);
-    }
-    
-    // Fidelity System menu
-    public static void fidelitySystemMenu(Scanner read) {
-        int option;
-        
-        do {
-            System.out.println("--- Sistema de Fidelidade ---");
-            System.out.println("1 - Adicionar 1 ponto ao usuário");
-            System.out.println("2 - Ver pontos do usuário");
-            System.out.println("3 - Resgatar pontos");
-            System.out.println("0 - Voltar");
-            System.out.print("--> Escolha uma opção: ");
+            System.out.println("--> Escolha uma opcao: ");
             option = read.nextInt();
             read.nextLine();
         
@@ -147,14 +99,24 @@ public class Main {
                     if (redeemPoints(points)) {
                         System.out.println("Resgate realizado com sucesso!");
                     } else {
-                        System.out.println("Não foi possível realizar o resgate.");
+                        System.out.println("Nao foi possivel realizar o resgate.");
                     }
                 }
+                    
+                case 4 -> {
+                }
+
+                case 5 -> {
+                }
+                    
+                case 6 -> {
+                }
+
 
                 case 0 -> {
                 }
 
-                default -> System.out.println("Opção inválida!");
+                default -> System.out.println("Opcao invalida!");
             }
         } while (option != 0);
     }
@@ -166,15 +128,17 @@ public class Main {
         // Menu option
         int option;
        
+        // Airport instance
+        Airport airport = new Airport();
+        airport.fill(read);
+        
         do {
             option = menu(read);
 
             switch (option) {
-                case 1 -> airportMenu(read);
+                case 1 -> airportMenu(read, airport);
 
-                case 2 -> flightMenu(read);
-
-                case 3 -> fidelitySystemMenu(read);
+                case 2 -> flightMenu(read, airport);
                     
                 case 0 -> System.out.println("Encerrando...");
 

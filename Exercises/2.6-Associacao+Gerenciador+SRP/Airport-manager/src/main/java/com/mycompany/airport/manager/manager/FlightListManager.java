@@ -31,7 +31,7 @@ public class FlightListManager {
                 }
             }
         } else {
-            System.out.println("Numero de voo invalido! Operação cancelada.");
+            System.out.println("Numero de voo invalido! Operacao cancelada.");
         }
     }
     
@@ -48,21 +48,23 @@ public class FlightListManager {
     }
     
     // Flights with prejudice
-    public void getFlightsWithPrejudice() {
+    public String getFlightsWithPrejudice() {
         boolean found = false;
+        StringBuilder sb = new StringBuilder();
                 
         if(!flightList.isEmpty()) {
-            System.out.println("-- Listar voos com prejuizo --");
+            sb.append("-- Listar voos com prejuizo --");
             for(Flight f : flightList) {
                 if(f.checkCapacity()) {
-                    System.out.println("Numero do voo: " + f.getFlightNumber());
+                    sb.append("Numero do voo: ").append(f.getFlightNumber());
                     found = true;
                 }
             }
             if(!found) System.out.println("Nenhum voo com prejuizo encontrado.");
         } else {
-            System.out.println("Nao ha nenhum voo cadastrado ate o momento.");
+            sb.append("Nao ha nenhum voo cadastrado ate o momento.");
         }
+        return sb.toString();
     }
     
     // Start a flight
@@ -73,21 +75,6 @@ public class FlightListManager {
                 if(f.getFlightNumber() == flightNumber) {
                     f.setFlightStatus("Voando");
                     System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para 'Voando'.");
-                }
-            }
-        } else {
-            System.out.println("Numero de voo invalido! Operação cancelada.");
-        }
-    }
-    
-    // End a flight
-    public void endFlight(int flightNumber) {
-        if(flightNumber >= 0) {
-            for(int i = 0; i < flightList.size(); i++) {
-                Flight f = flightList.get(i);
-                if(f.getFlightNumber() == flightNumber) {
-                    f.setFlightStatus("Voando");
-                    System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para: 'Concluido'.");
                 }
             }
         } else {

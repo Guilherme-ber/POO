@@ -30,24 +30,12 @@ public class Airport {
     }
     
     // Add flight
-    public void addFlight() {
-        Scanner read = new Scanner(System.in);
-        
-        Flight f = new Flight();
-        f.fill(read);
-        
+    public void addFlight(Flight f) {    
         flightListManager.addFlight(f);
     }
     
     // Remove flight
-    public void removeFlight() {
-        Scanner read = new Scanner(System.in);
-        int flightNumber;
-        
-        System.out.println("Informe o número do voo para remocao: ");
-        flightNumber = read.nextInt();
-        read.nextLine();
-        
+    public void removeFlight(int flightNumber) {
         flightListManager.removeFlight(flightNumber);
     }
     
@@ -57,34 +45,13 @@ public class Airport {
     }
     
     // Flights with prejudice
-    public void getFlightsWithPrejudice() {
-        flightListManager.getFlightsWithPrejudice();
+    public String getFlightsWithPrejudice() {
+        return flightListManager.getFlightsWithPrejudice();
     }
     
     // Start flight
-    public void startFlight() {
-        Scanner read = new Scanner(System.in);
-        int flightNumber;
-        
-        System.out.println("Informe o número do voo para iniciar a decolagem: ");
-        flightNumber = read.nextInt();
-        read.nextLine();
-        
-        System.out.println("Iniciando voo...");
+    public void startFlight(int flightNumber) {
         flightListManager.startFlight(flightNumber);
-        }
-    
-    // End flight
-    public void endFlight() {
-        Scanner read = new Scanner(System.in);
-        int flightNumber;
-        
-        System.out.println("Informe o número do voo para finalizar a viagem: ");
-        flightNumber = read.nextInt();
-        read.nextLine();
-        
-        System.out.println("Finalizando voo...");
-        flightListManager.endFlight(flightNumber);
     }
     
     // Getters and Setters
