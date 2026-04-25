@@ -55,7 +55,7 @@ public class FlightListManager {
             System.out.println("-- Listar voos com prejuizo --");
             for(Flight f : flightList) {
                 if(f.checkCapacity()) {
-                    System.out.println("Numero do voo: " + f.getFlightNum());
+                    System.out.println("Numero do voo: " + f.getFlightNumber());
                     found = true;
                 }
             }
@@ -71,7 +71,7 @@ public class FlightListManager {
             for(int i = 0; i < flightList.size(); i++) {
                 Flight f = flightList.get(i);
                 if(f.getFlightNumber() == flightNumber) {
-                    f.setStatus("Voando");
+                    f.setFlightStatus("Voando");
                     System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para 'Voando'.");
                 }
             }
@@ -86,7 +86,7 @@ public class FlightListManager {
             for(int i = 0; i < flightList.size(); i++) {
                 Flight f = flightList.get(i);
                 if(f.getFlightNumber() == flightNumber) {
-                    f.setStatus("Voando");
+                    f.setFlightStatus("Voando");
                     System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para: 'Concluido'.");
                 }
             }

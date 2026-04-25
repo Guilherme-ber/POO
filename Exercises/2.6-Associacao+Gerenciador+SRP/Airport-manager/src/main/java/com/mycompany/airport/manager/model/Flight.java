@@ -106,6 +106,19 @@ public class Flight {
         } while (option != 0);
     }
     
+    // Fill
+    public void fill(Scanner read) {
+        System.out.println("-- Preencher informacoes do Voo --");
+        System.out.println("Numero do Voo: ");
+        this.flightNumber = read.nextInt();
+        System.out.println("Destino do Voo: ");
+        this.destination = read.nextLine();
+        System.out.println("Capacidade maxima de passageiros do Voo: ");
+        this.maximumPassengerCapacity = read.nextInt();
+        System.out.println("Status do Voo: ");
+        this.flightStatus = read.nextLine();
+    }
+    
     // Add passenger
     public void addPassenger(Passenger passenger){
         this.passenger.add(passenger);
