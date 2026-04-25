@@ -15,7 +15,7 @@ public class Main {
         return flightNumber;
     }
     
-    public static boolean verifyFlightExistence(Airport airport) {
+    public static boolean isFlightListEmpty(Airport airport) {
         return airport.getFlightListManager().getFlightList().isEmpty();
     }
 
@@ -32,7 +32,7 @@ public class Main {
     }
     
     // Airport menu
-    public static void airportMenu(Scanner read, Airport airport) {
+    public static void airportMenu(Scanner read, Airport airport, Flight f) {
         int option;
         
         do {
@@ -49,20 +49,37 @@ public class Main {
         
             switch(option) {
                 case 1 -> {
-                    Flight f = new Flight();
-                    f.fill(read);
-                    airport.addFlight(f);
+                    Flight newFlight = new Flight();
+                    newFlight.fill(read);
+                    airport.addFlight(newFlight);
                 }
                 
-                case 2 -> airport.removeFlight(getFlightNumber(read));
+                case 2 -> {
+                    if(!airport.getFlightListManager().getFlightList().isEmpty()) {
+                        airport.removeFlight(getFlightNumber(read));
+                        System.out.println("Voo removido com sucesso.");
+                    } else {
+                        System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                    }
+                }
                     
-                case 3 -> airport.listFlights();
+                case 3 -> {
+                    if(!airport.getFlightListManager().getFlightList().isEmpty()) airport.listFlights();
+                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                }
 
-                case 4 -> System.out.println(airport.getFlightsWithPrejudice());
+                case 4 -> {
+                    if(!airport.getFlightListManager().getFlightList().isEmpty()) System.out.println(airport.getFlightsWithPrejudice());
+                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                }
                     
                 case 5 -> {
-                    // Verificar se o voo existe, se tem escala e passageiro;
-                    airport.startFlight(getFlightNumber(read));
+                    if(!airport.getFlightListManager().getFlightList().isEmpty()) {
+                        int number = getFlightNumber(read);
+                        f = airport.getFlightListManager().searchByFlightNumber(number);
+                        if(!f.getStopoverManager().getStopoverList().isEmpty() && !f.getPassengerManager().getPassengerList().isEmpty()) airport.startFlight(number);
+                    } else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                    
                 }
                     
                 case 0 -> {
@@ -84,7 +101,6 @@ public class Main {
             System.out.println("3 - Adicionar escala");
             System.out.println("4 - Remover escala");
             System.out.println("5 - Alterar estado do voo");
-            System.out.println("6 - Checar capacidade do voo");
             System.out.println("0 - Voltar");
             System.out.println("--> Escolha uma opcao: ");
             option = read.nextInt();
@@ -97,7 +113,7 @@ public class Main {
                         Passenger p = new Passenger();
                         p.fill(read);
                         f.addPassenger(p);
-                        System.out.println("Passageiro criado e adicionado ao voo " + f.getFlightNumber() + " com sucesso!");
+                        System.out.println("Passageiro '" + p.getName() + "' criado e adicionado ao voo '" + f.getFlightNumber() + "' com sucesso!");
                     }
                 }
 
@@ -107,26 +123,45 @@ public class Main {
                         System.out.println("Digite o CPF do passageiro que sera removido: ");
                         String cpf = read.nextLine();
                         f.getPassengerManager().removePassenger(cpf);
-                        System.out.println("Passageiro removido com sucesso!");
+                        System.out.println("Passageiro com CPF '" + cpf + "' removido do voo '" + f.getFlightNumber() + "' com sucesso!");
                     }
                 }
 
                 case 3 -> {
+                    System.out.println("Quantas escalas serao adicionadas? ");
+                    int stopovers = read.nextInt();
+                    read.nextLine();
                     
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
+                    if(stopovers > 0 && stopovers <= 10) {
+                        for(int i = 0; i < stopovers; i++) {
+                            System.out.println((i + 1) + " - Nome da escala: ");
+                            String so = read.nextLine();
+                            f.getStopoverManager().addStopover(so);
+                            System.out.println("Escala adicionada com sucesso!");
+                        }
+                    } else System.out.println("Nao e possivel adicionar mais de 10 ou menos que 0 escalas.");
                 }
                     
                 case 4 -> {
-                    
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
+                    if(f != null && !f.getStopoverManager().getStopoverList().isEmpty()) {
+                        System.out.println("Nome da escala para remocao: ");
+                        String so = read.nextLine();
+                        
+                        f.getStopoverManager().removeStopover(so);
+                        System.out.println("Escala removida com sucesso!");
+                    } else System.out.println("Voo nao encontrado ou sem escalas cadastradas.");
                 }
 
                 case 5 -> {
-                    
+                    System.out.println("Selecione o Estado de voo");
+                    System.out.println("1 - Aguardando decolagem \n2 - Voando \n3 - Concluido");
+                    int option2 = read.nextInt();
+                    read.nextLine();
+                    f.switchFlightState(option2);
+                    System.out.println("Status do voo alterado para '" + f.getFlightStatus() + "' com sucesso!");
                 }
-                    
-                case 6 -> {
-                    
-                }
-
 
                 case 0 -> {
                 }
@@ -152,10 +187,10 @@ public class Main {
             option = menu(read);
 
             switch (option) {
-                case 1 -> airportMenu(read, airport);
+                case 1 -> airportMenu(read, airport, flight);
 
                 case 2 -> {
-                    if(verifyFlightExistence(airport)) {
+                    if(!isFlightListEmpty(airport)) {
                         flightMenu(read, airport, flight);
                     } else {
                         System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de prosseguir.");

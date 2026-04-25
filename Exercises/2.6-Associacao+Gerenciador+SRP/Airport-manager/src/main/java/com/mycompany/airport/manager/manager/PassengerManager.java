@@ -16,7 +16,7 @@ public class PassengerManager {
     }
     public void copy(Flight other) {
         this.passengerList = new ArrayList<>();
-        for(Passenger p : passengerList) {
+        for(Passenger p : other.getPassengerManager().getPassengerList()) {
             Passenger n = new Passenger();
             n.copy(p);
             passengerList.add(n);
@@ -30,7 +30,7 @@ public class PassengerManager {
     
     // Remove passenger
     public void removePassenger(String cpf) {
-        if(passengerList.size() <= 0) {
+        if(!passengerList.isEmpty()) {
             for (int i = 0; i < passengerList.size(); i++) {
                 Passenger p = passengerList.get(i);
                 if(p.getCpf().equals(cpf)) {

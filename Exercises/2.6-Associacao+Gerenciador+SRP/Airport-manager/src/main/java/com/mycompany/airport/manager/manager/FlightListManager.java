@@ -67,10 +67,10 @@ public class FlightListManager {
         StringBuilder sb = new StringBuilder();
                 
         if(!flightList.isEmpty()) {
-            sb.append("-- Listar voos com prejuizo --");
+            sb.append("-- Listar voos com prejuizo --\n");
             for(Flight f : flightList) {
                 if(f.checkCapacity()) {
-                    sb.append("Numero do voo: ").append(f.getFlightNumber());
+                    sb.append("Numero do voo: ").append(f.getFlightNumber()).append("\n");
                     found = true;
                 }
             }

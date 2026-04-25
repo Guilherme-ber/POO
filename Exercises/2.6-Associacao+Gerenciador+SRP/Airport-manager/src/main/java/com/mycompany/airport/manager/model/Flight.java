@@ -44,12 +44,12 @@ public class Flight {
         System.out.println("-- Preencher informacoes do Voo --");
         System.out.println("Numero do Voo: ");
         this.flightNumber = read.nextInt();
+        read.nextLine();
         System.out.println("Destino do Voo: ");
         this.destination = read.nextLine();
         System.out.println("Capacidade maxima de passageiros do Voo: ");
         this.maximumPassengerCapacity = read.nextInt();
-        System.out.println("Status do Voo: ");
-        this.flightStatus = read.nextLine();
+        read.nextLine();
     }
     
     // Add passenger
@@ -81,25 +81,26 @@ public class Flight {
     }
     
     // Switch flight state
-    public void switchFlightState(){
-        Scanner read = new Scanner(System.in);
-        System.out.println("Selecione o Estado de voo");
-        System.out.println("1 - Aguardando decolagem \n2 - Voando \n3 - Concluido");
-        int option = read.nextInt();
-        read.nextLine();
+    public void switchFlightState(int option) {
+        boolean back = false;
 
-        for(int i = 0; i >= 0; i++) {
+        while(true) {
            switch(option) {
-               case 1:
+                case 1 -> {
                    setFlightStatus("Aguardando decolagem");
-                   break;
-               case 2:
-                   setFlightStatus("Voando");
-                   break;
-               case 3:
-                   setFlightStatus("Concluido");
-                   break;
+                   back = true;
+                }
+                case 2 -> {
+                    setFlightStatus("Voando");
+                    back = true;
+                }
+                case 3 -> {
+                    setFlightStatus("Concluido");
+                    back = true;
+                }
+                default -> System.out.println("Opcao invalida.");
            }
+           if(back) break;
         }  
     }
     
@@ -146,6 +147,9 @@ public class Flight {
     public PassengerManager getPassengerManager() {
         return passengerManager;
     }
+    public StopoverManager getStopoverManager() {
+        return stopoverManager;
+    }
     
     public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
@@ -161,5 +165,8 @@ public class Flight {
     }
     public void setPassengerManager(PassengerManager passengerManager) {
         this.passengerManager = passengerManager;
+    }
+    public void setStopoverManager(StopoverManager stopoverManager) {
+        this.stopoverManager = stopoverManager;
     }
 }

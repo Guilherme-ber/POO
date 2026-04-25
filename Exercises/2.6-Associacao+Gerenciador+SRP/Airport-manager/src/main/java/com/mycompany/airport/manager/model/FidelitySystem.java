@@ -13,7 +13,7 @@ public class FidelitySystem {
     
     // Add points
     public void addPoints() {
-        if(accumulatedPoints >= 0) this.accumulatedPoints++;
+        this.accumulatedPoints++;
     }
     
     // Verify/Show points

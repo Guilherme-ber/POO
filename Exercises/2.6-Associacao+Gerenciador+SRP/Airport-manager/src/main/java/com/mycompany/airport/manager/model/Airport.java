@@ -13,6 +13,7 @@ public class Airport {
     
     // Constructors
     public Airport() {
+        this.flightListManager = new FlightListManager();
     }
     public Airport(String name, String local) {
         this.name = name;
