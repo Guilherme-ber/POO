@@ -1,9 +1,5 @@
 package com.mycompany.airport.manager.model;
 
-// Manager
-import com.mycompany.airport.manager.manager.*;
-import java.util.ArrayList;
-
 // Utils
 import java.util.Scanner;
 

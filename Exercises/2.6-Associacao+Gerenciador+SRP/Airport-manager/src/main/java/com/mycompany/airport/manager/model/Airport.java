@@ -120,7 +120,7 @@ public class Airport {
         
         System.out.println("Iniciando voo...");
         flightListManager.startFlight(flightNumber);
-    }
+        }
     
     // End flight
     public void endFlight() {
@@ -133,5 +133,26 @@ public class Airport {
         
         System.out.println("Finalizando voo...");
         flightListManager.endFlight(flightNumber);
+    }
+    
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+    public String getLocal() {
+        return local;
+    }
+    public FlightListManager getFlightListManager() {
+        return flightListManager;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setLocal(String local) {
+        this.local = local;
+    }
+    public void setFlightListManager(FlightListManager flightListManager) {
+        this.flightListManager = flightListManager;
     }
 }

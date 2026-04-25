@@ -13,7 +13,7 @@ public class Main {
         System.out.println("2 - Gerenciar voo");
         System.out.println("3 - Acessar o sistema de fidelidade");
         System.out.println("0 - Sair do sistema");
-        System.out.print("--> Escolha uma opcao: ");
+        System.out.println("--> Escolha uma opcao: ");
         int option = read.nextInt();
         read.nextLine();
         return option;
