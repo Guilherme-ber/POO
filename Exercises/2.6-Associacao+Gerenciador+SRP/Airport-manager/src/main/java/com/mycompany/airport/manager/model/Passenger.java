@@ -25,7 +25,7 @@ public class Passenger {
     
     // Fill passenger
     public void fill(Scanner read) { 
-        System.out.println("-- Preencher o usuário --");
+        System.out.println("-- Preencher o usuario --");
         System.out.println("Nome do passageiro: ");
         this.name = read.nextLine();
         System.out.println("CPF do passageiro: ");

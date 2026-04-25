@@ -47,6 +47,15 @@ public class PassengerManager {
         return passengerList.size() < 5;
     }
     
+    // Show Passengers
+    public String showPassengers() {
+        StringBuilder sb = new StringBuilder();
+        for(Passenger p : passengerList) {
+            sb.append(p.toString());
+        }
+        return sb.toString();
+    }
+    
     // To String
     public String toString(StringBuilder sb) {
         sb.append("\n--- Passageiros ---\n");

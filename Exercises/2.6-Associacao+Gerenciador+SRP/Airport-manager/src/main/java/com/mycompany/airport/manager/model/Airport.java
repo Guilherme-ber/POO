@@ -30,6 +30,17 @@ public class Airport {
         this.local = read.nextLine();
     }
     
+    // Show airport
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: ").append(this.getName());
+        sb.append("\nLocalizacao: ").append(this.getLocal()).append("\n");
+        sb.append(listFlights(sb));
+
+        return sb.toString();
+    }
+    
     // Add flight
     public void addFlight(Flight f) {    
         flightListManager.addFlight(f);
@@ -41,8 +52,9 @@ public class Airport {
     }
     
     // List flights
-    public void listFlights() {
-        flightListManager.listFlights();
+    public String listFlights(StringBuilder sb) {
+        String f = flightListManager.listFlights(sb);
+        return f;
     }
     
     // Flights with prejudice

@@ -50,15 +50,16 @@ public class FlightListManager {
     }
     
     // List all flights
-    public void listFlights() {
+    public String listFlights(StringBuilder sb) {
         if(!flightList.isEmpty()) {
-            System.out.println("-- Listar voos --");
+            sb.append("-- Listar voos --");
             for(Flight f : flightList) {
-                System.out.println(f);
+                sb.append(f);
             }
         } else {
-            System.out.println("Nao ha nenhum voo cadastrado ate o momento.");
+            sb.append("Nao ha nenhum voo cadastrado ate o momento.");
         }
+        return sb.toString();
     }
     
     // Flights with prejudice
@@ -69,9 +70,11 @@ public class FlightListManager {
         if(!flightList.isEmpty()) {
             sb.append("-- Listar voos com prejuizo --\n");
             for(Flight f : flightList) {
-                if(f.checkCapacity()) {
-                    sb.append("Numero do voo: ").append(f.getFlightNumber()).append("\n");
-                    found = true;
+                if(!f.getPassengerManager().getPassengerList().isEmpty()) {
+                    if(f.checkCapacity()) {
+                        sb.append("Numero do voo: ").append(f.getFlightNumber()).append("\n");
+                        found = true;
+                    }
                 }
             }
             if(!found) sb.append("Nenhum voo com prejuizo encontrado.");

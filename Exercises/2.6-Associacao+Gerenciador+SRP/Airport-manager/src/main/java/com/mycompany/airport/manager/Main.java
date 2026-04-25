@@ -42,6 +42,7 @@ public class Main {
             System.out.println("3 - Listar voos");
             System.out.println("4 - Voos com prejuizo");
             System.out.println("5 - Iniciar um voo");
+            System.out.println("6 - Mostrar esse aeroporto");
             System.out.println("0 - Voltar");
             System.out.println("--> Escolha uma opcao: ");
             option = read.nextInt();
@@ -64,7 +65,11 @@ public class Main {
                 }
                     
                 case 3 -> {
-                    if(!airport.getFlightListManager().getFlightList().isEmpty()) airport.listFlights();
+                    StringBuilder sb = new StringBuilder();
+                    if(!airport.getFlightListManager().getFlightList().isEmpty()) {
+                        String f2 = airport.listFlights(sb);
+                        System.out.println(f2);
+                    }
                     else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
                 }
 
@@ -78,10 +83,13 @@ public class Main {
                         int number = getFlightNumber(read);
                         f = airport.getFlightListManager().searchByFlightNumber(number);
                         if(!f.getStopoverManager().getStopoverList().isEmpty() && !f.getPassengerManager().getPassengerList().isEmpty()) airport.startFlight(number);
+                        else System.out.println("Escalas e/ou passageiros nao preenchidos. Preencha antes de iniciar o voo.");
                     } else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
                     
                 }
-                    
+                   
+                case 6 -> System.out.println(airport); 
+                
                 case 0 -> {
                 }
 
@@ -101,6 +109,7 @@ public class Main {
             System.out.println("3 - Adicionar escala");
             System.out.println("4 - Remover escala");
             System.out.println("5 - Alterar estado do voo");
+            System.out.println("6 - Listar passageiros");
             System.out.println("0 - Voltar");
             System.out.println("--> Escolha uma opcao: ");
             option = read.nextInt();
@@ -161,6 +170,12 @@ public class Main {
                     read.nextLine();
                     f.switchFlightState(option2);
                     System.out.println("Status do voo alterado para '" + f.getFlightStatus() + "' com sucesso!");
+                }
+                
+                case 6 -> {
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
+                    String sb = f.getPassengerManager().showPassengers();
+                    System.out.println(sb);
                 }
 
                 case 0 -> {

@@ -115,9 +115,9 @@ public class Flight {
         StringBuilder sb = new StringBuilder();
 
         sb.append("=== Dados do Voo ===\n");
-        sb.append("Número do voo: ").append(flightNumber).append("\n");
+        sb.append("Numero do voo: ").append(flightNumber).append("\n");
         sb.append("Destino: ").append(destination).append("\n");
-        sb.append("Capacidade máxima: ").append(maximumPassengerCapacity).append("\n");
+        sb.append("Capacidade maxima: ").append(maximumPassengerCapacity).append("\n");
         sb.append("Estado do voo: ").append(flightStatus).append("\n");
         
         if (passengerManager.getPassengerList().isEmpty()) sb.append("Nenhum passageiro cadastrado.\n");
