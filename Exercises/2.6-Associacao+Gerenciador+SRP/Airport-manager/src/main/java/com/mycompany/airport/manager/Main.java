@@ -7,12 +7,16 @@ import com.mycompany.airport.manager.model.*;
 import java.util.Scanner;
 
 public class Main {
-    // Get flight number
+    // Util functions
     public static int getFlightNumber(Scanner read) {
-        System.out.println("Informe o numero do voo para remocao: ");
+        System.out.println("Informe o numero do voo: ");
         int flightNumber = read.nextInt();
         read.nextLine();
         return flightNumber;
+    }
+    
+    public static boolean verifyFlightExistence(Airport airport) {
+        return airport.getFlightListManager().getFlightList().isEmpty();
     }
 
     // Main menu
@@ -56,7 +60,10 @@ public class Main {
 
                 case 4 -> System.out.println(airport.getFlightsWithPrejudice());
                     
-                case 5 -> airport.startFlight(getFlightNumber(read));
+                case 5 -> {
+                    // Verificar se o voo existe, se tem escala e passageiro;
+                    airport.startFlight(getFlightNumber(read));
+                }
                     
                 case 0 -> {
                 }
@@ -67,7 +74,7 @@ public class Main {
     }
     
     // Flight menu
-    public static void flightMenu(Scanner read, Airport airport) {
+    public static void flightMenu(Scanner read, Airport airport, Flight f) {
         int option;
         
         do {
@@ -84,32 +91,40 @@ public class Main {
             read.nextLine();
         
             switch(option) {
-                case 1 -> { 
-                    addPoints();
-                    System.out.println("1 ponto adicionado!");
+                case 1 -> {
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
+                    if(f.getPassengerManager().getPassengerList().size() < f.getMaximumPassengerCapacity()) {
+                        Passenger p = new Passenger();
+                        p.fill(read);
+                        f.addPassenger(p);
+                        System.out.println("Passageiro criado e adicionado ao voo " + f.getFlightNumber() + " com sucesso!");
+                    }
                 }
 
-                case 2 -> System.out.println("Pontos: " + getPoints());
+                case 2 -> {
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
+                    if(!f.getPassengerManager().getPassengerList().isEmpty()) {
+                        System.out.println("Digite o CPF do passageiro que sera removido: ");
+                        String cpf = read.nextLine();
+                        f.getPassengerManager().removePassenger(cpf);
+                        System.out.println("Passageiro removido com sucesso!");
+                    }
+                }
 
                 case 3 -> {
-                    System.out.print("Quantos pontos deseja resgatar? ");
-                    int points = read.nextInt();
-                    read.nextLine();
-
-                    if (redeemPoints(points)) {
-                        System.out.println("Resgate realizado com sucesso!");
-                    } else {
-                        System.out.println("Nao foi possivel realizar o resgate.");
-                    }
+                    
                 }
                     
                 case 4 -> {
+                    
                 }
 
                 case 5 -> {
+                    
                 }
                     
                 case 6 -> {
+                    
                 }
 
 
@@ -128,9 +143,10 @@ public class Main {
         // Menu option
         int option;
        
-        // Airport instance
+        // Airport and Flight instance
         Airport airport = new Airport();
         airport.fill(read);
+        Flight flight = new Flight();
         
         do {
             option = menu(read);
@@ -138,8 +154,14 @@ public class Main {
             switch (option) {
                 case 1 -> airportMenu(read, airport);
 
-                case 2 -> flightMenu(read, airport);
-                    
+                case 2 -> {
+                    if(verifyFlightExistence(airport)) {
+                        flightMenu(read, airport, flight);
+                    } else {
+                        System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de prosseguir.");
+                    }
+                }    
+                
                 case 0 -> System.out.println("Encerrando...");
 
                 default -> System.out.println("Opção inválida!");

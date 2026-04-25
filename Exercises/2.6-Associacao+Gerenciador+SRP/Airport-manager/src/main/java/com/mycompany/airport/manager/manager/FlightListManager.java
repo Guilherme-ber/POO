@@ -35,6 +35,20 @@ public class FlightListManager {
         }
     }
     
+    // Search by flight number
+    public Flight searchByFlightNumber(int flightNumber) {
+        if(flightNumber >= 0) {
+            for(int i = 0; i < flightList.size(); i++) {
+                if(flightList.get(i).getFlightNumber() == flightNumber) {
+                    return flightList.get(i);
+                }
+            }
+        } else {
+            System.out.println("Numero de voo invalido! Operacao cancelada.");
+        }
+        return null;
+    }
+    
     // List all flights
     public void listFlights() {
         if(!flightList.isEmpty()) {
@@ -60,7 +74,7 @@ public class FlightListManager {
                     found = true;
                 }
             }
-            if(!found) System.out.println("Nenhum voo com prejuizo encontrado.");
+            if(!found) sb.append("Nenhum voo com prejuizo encontrado.");
         } else {
             sb.append("Nao ha nenhum voo cadastrado ate o momento.");
         }
@@ -80,5 +94,14 @@ public class FlightListManager {
         } else {
             System.out.println("Numero de voo invalido! Operação cancelada.");
         }
+    }
+    
+    // Getters and Setters
+    public List<Flight> getFlightList() {
+        return flightList;
+    }
+
+    public void setFlightList(List<Flight> flightList) {
+        this.flightList = flightList;
     }
 }

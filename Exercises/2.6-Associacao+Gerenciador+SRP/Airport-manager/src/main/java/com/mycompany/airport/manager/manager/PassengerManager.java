@@ -7,10 +7,6 @@ import com.mycompany.airport.manager.model.*;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- *
- * @author guilh
- */
 public class PassengerManager {
     private List<Passenger> passengerList;
     
