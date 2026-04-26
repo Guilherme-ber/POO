@@ -36,7 +36,7 @@ public class Airport {
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(this.getName());
         sb.append("\nLocalizacao: ").append(this.getLocal()).append("\n");
-        sb.append(listFlights(sb));
+        sb.append(flightListManager.listFlights(new StringBuilder()));
 
         return sb.toString();
     }

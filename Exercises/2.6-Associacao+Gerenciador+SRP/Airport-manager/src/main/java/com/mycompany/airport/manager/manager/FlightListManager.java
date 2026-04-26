@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class FlightListManager {
     private List<Flight> flightList;
     
-    // Constructors
+    // Constructor
     public FlightListManager() {
         this.flightList = new ArrayList<>();
     }
@@ -68,7 +68,7 @@ public class FlightListManager {
         StringBuilder sb = new StringBuilder();
                 
         if(!flightList.isEmpty()) {
-            sb.append("-- Listar voos com prejuizo --\n");
+            sb.append("-- Listar voos com prejuizo (que possuem passageiros cadastrados) --\n");
             for(Flight f : flightList) {
                 if(!f.getPassengerManager().getPassengerList().isEmpty()) {
                     if(f.checkCapacity()) {
@@ -91,7 +91,7 @@ public class FlightListManager {
                 Flight f = flightList.get(i);
                 if(f.getFlightNumber() == flightNumber) {
                     f.setFlightStatus("Voando");
-                    System.out.println("Status do voo: " + f.getFlightNumber() + " alterado para 'Voando'.");
+                    System.out.println("Status do voo '" + f.getFlightNumber() + "' alterado para 'Voando'.");
                 }
             }
         } else {

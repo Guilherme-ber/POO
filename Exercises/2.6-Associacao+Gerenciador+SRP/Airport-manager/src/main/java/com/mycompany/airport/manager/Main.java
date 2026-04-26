@@ -131,6 +131,7 @@ public class Main {
                     if(!f.getPassengerManager().getPassengerList().isEmpty()) {
                         System.out.println("Digite o CPF do passageiro que sera removido: ");
                         String cpf = read.nextLine();
+                        
                         f.getPassengerManager().removePassenger(cpf);
                         System.out.println("Passageiro com CPF '" + cpf + "' removido do voo '" + f.getFlightNumber() + "' com sucesso!");
                     }
@@ -146,8 +147,10 @@ public class Main {
                         for(int i = 0; i < stopovers; i++) {
                             System.out.println((i + 1) + " - Nome da escala: ");
                             String so = read.nextLine();
-                            f.getStopoverManager().addStopover(so);
-                            System.out.println("Escala adicionada com sucesso!");
+                            if(f != null) {
+                                f.getStopoverManager().addStopover(so); 
+                                System.out.println("Escala adicionada com sucesso!");
+                            } else System.out.println("Numero do voo nao encontrado.");
                         }
                     } else System.out.println("Nao e possivel adicionar mais de 10 ou menos que 0 escalas.");
                 }
@@ -164,12 +167,17 @@ public class Main {
                 }
 
                 case 5 -> {
+                    f = airport.getFlightListManager().searchByFlightNumber(getFlightNumber(read));
                     System.out.println("Selecione o Estado de voo");
                     System.out.println("1 - Aguardando decolagem \n2 - Voando \n3 - Concluido");
                     int option2 = read.nextInt();
                     read.nextLine();
-                    f.switchFlightState(option2);
-                    System.out.println("Status do voo alterado para '" + f.getFlightStatus() + "' com sucesso!");
+                    if(f != null) { 
+                        f.switchFlightState(option2);
+                        System.out.println("Status do voo alterado para '" + f.getFlightStatus() + "' com sucesso!");
+                    } else {
+                        System.out.println("Numero do voo nao encontrado.");
+                    }
                 }
                 
                 case 6 -> {

@@ -126,7 +126,7 @@ public class Flight {
         if (stopoverManager.getStopoverList().isEmpty()) sb.append("Nenhuma escala cadastrada.\n");
         else stopoverManager.toString(sb);
 
-        sb.append("\nTotal de passageiros: ").append(passengerManager.getPassengerList().size());
+        sb.append("\nTotal de passageiros: ").append(passengerManager.getPassengerList().size()).append("\n");
 
         return sb.toString();
     }
