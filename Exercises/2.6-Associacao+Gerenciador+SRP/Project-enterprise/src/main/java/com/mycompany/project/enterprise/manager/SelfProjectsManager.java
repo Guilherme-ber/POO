@@ -7,20 +7,20 @@ import com.mycompany.project.enterprise.model.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AvailableProjectsManager {
+public class SelfProjectsManager {
     private List<Project> projectList;
 
     // Constructor
-    public AvailableProjectsManager() {
+    public SelfProjectsManager() {
         this.projectList = new ArrayList<>();
     }
 
-    // Add Project
+    // Add projects
     public void addProject(Project p) {
         projectList.add(p);
     }
 
-    // Remove Project
+    // Remove projects
     public void removeProject(int i) {
         if (i >= 0 && i < projectList.size()) {
             projectList.remove(i);
@@ -29,21 +29,15 @@ public class AvailableProjectsManager {
         }
     }
 
-    // List Project
-    public void listProjects() {
-        if (!projectList.isEmpty()) {
-            for (Project p : projectList) {
-                System.out.println(p);
-            }
-        } else {
-            System.out.println("Nenhum projeto cadastrado.");
-        }
+    // Count projects and return
+    public int countProjects() {
+        return projectList.size();
     }
 
     // To String
     @Override
     public String toString() {
-        return "AvailableProjectsManager{projectList=" + projectList + '}';
+        return "SelfProjectsManager{projectList=" + projectList + '}';
     }
     
     // Getters and Setters
