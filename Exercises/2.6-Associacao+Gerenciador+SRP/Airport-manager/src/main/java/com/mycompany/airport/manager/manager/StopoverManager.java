@@ -16,15 +16,19 @@ public class StopoverManager {
     public void addStopover(String stopover) {
         stopoverList.add(stopover);
     }
-
+    
     // Remove stopover
     public void removeStopover(String stopover) {
-        for(int i = 0; i < stopoverList.size(); i++) {
-            if(stopoverList.get(i).equals(stopover)) {
-                stopoverList.remove(i);
-                i--;
-                System.out.println("Escala removida!");
+        if(!stopoverList.isEmpty()) {
+            for(int i = 0; i < stopoverList.size(); i++) {
+                if(stopoverList.get(i).equals(stopover)) {
+                    stopoverList.remove(i);
+                    i--;
+                    System.out.println("Escala removida!");
+                }
             }
+        } else {
+            System.out.println("O Voo nao possui nenhuma escala cadastrada ate o momento.");
         }
     }
     

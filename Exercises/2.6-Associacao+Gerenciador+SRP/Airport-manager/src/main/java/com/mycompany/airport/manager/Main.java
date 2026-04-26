@@ -70,12 +70,12 @@ public class Main {
                         String f2 = airport.listFlights(sb);
                         System.out.println(f2);
                     }
-                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de listar.");
                 }
 
                 case 4 -> {
                     if(!airport.getFlightListManager().getFlightList().isEmpty()) System.out.println(airport.getFlightsWithPrejudice());
-                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                    else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes para ver o prejuizo.");
                 }
                     
                 case 5 -> {
@@ -84,7 +84,7 @@ public class Main {
                         f = airport.getFlightListManager().searchByFlightNumber(number);
                         if(!f.getStopoverManager().getStopoverList().isEmpty() && !f.getPassengerManager().getPassengerList().isEmpty()) airport.startFlight(number);
                         else System.out.println("Escalas e/ou passageiros nao preenchidos. Preencha antes de iniciar o voo.");
-                    } else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de remover.");
+                    } else System.out.println("Nenhum voo cadastrado. Cadastre um novo voo antes de iniciar.");
                     
                 }
                    
