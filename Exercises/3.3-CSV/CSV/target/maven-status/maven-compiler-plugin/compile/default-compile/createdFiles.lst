@@ -1,0 +1,5 @@
+com\mycompany\csv\Main.class
+com\mycompany\csv\model\CSVMusicSerializer.class
+com\mycompany\csv\manager\MusicManager.class
+com\mycompany\csv\FilePersistence.class
+com\mycompany\csv\model\Music.class

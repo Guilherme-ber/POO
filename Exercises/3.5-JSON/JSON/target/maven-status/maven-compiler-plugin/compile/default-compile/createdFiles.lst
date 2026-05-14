@@ -1,0 +1,6 @@
+com\mycompany\json\Main.class
+com\mycompany\json\model\FilePersistence.class
+com\mycompany\json\model\JSONServiceMusic.class
+com\mycompany\json\model\Music.class
+com\mycompany\json\model\Musics.class
+com\mycompany\json\manager\MusicManager.class
