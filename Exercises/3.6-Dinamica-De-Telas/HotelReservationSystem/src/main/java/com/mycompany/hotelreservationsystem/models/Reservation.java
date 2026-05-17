@@ -35,19 +35,33 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation: " + guest.getName() + " | Room: " + room.getRoomNumber();
+        return "Reserva: " + guest.getName() + " | Quarto nº: " + room.getRoomNumber();
     }
     
     // Getters and Setters
-    public Guest getGuest() { return guest; }
-    public void setGuest(Guest guest) { this.guest = guest; }
-
-    public Room getRoom() { return room; }
-    public void setRoom(Room room) { this.room = room; }
-
-    public String getCheckInDate() { return checkInDate; }
-    public void setCheckInDate(String checkInDate) { this.checkInDate = checkInDate; }
-
-    public String getCheckOutDate() { return checkOutDate; }
-    public void setCheckOutDate(String checkOutDate) { this.checkOutDate = checkOutDate; }
+    public Guest getGuest() {
+        return guest;
+    }
+    public Room getRoom() {
+        return room;
+    }
+    public String getCheckInDate() {
+        return checkInDate;
+    }
+    public String getCheckOutDate() {
+        return checkOutDate;
+    }
+    
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    public void setCheckInDate(String checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+    public void setCheckOutDate(String checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
 }

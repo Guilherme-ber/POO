@@ -17,9 +17,7 @@ public class HotelManager {
         this.guests = new ArrayList<>();
         this.rooms = new ArrayList<>();
         this.reservations = new ArrayList<>();
-
         this.persistence = new JsonSerialization(); 
-
         this.persistence.loadData(guests, rooms, reservations);
     }
 
