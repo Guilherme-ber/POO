@@ -20,8 +20,6 @@ public class HotelManager {
         this.persistence.loadData(guests, rooms, reservations);
     }
 
-    // ── Guest ──────────────────────────────────────────────────────────────
-
     public boolean addGuest(Guest guest) {
         if (guests.contains(guest)) return false;
         guests.add(guest);
@@ -29,12 +27,6 @@ public class HotelManager {
         return true;
     }
 
-    /**
-     * Remove hóspede pelo documento.
-     * Também remove todas as reservas associadas ao hóspede.
-     *
-     * @return true se removido, false se não encontrado
-     */
     public boolean removeGuest(String document) {
         boolean removed = guests.removeIf(g -> g.getDocument().equals(document));
         if (removed) {
@@ -44,12 +36,9 @@ public class HotelManager {
         return removed;
     }
 
-    /** Retorna cópia defensiva da lista de hóspedes. */
     public List<Guest> getGuests() {
         return new ArrayList<>(guests);
     }
-
-    // ── Room ───────────────────────────────────────────────────────────────
 
     public boolean addRoom(Room room) {
         if (rooms.contains(room)) return false;
@@ -58,12 +47,6 @@ public class HotelManager {
         return true;
     }
 
-    /**
-     * Remove quarto pelo número.
-     * Também remove todas as reservas associadas ao quarto.
-     *
-     * @return true se removido, false se não encontrado
-     */
     public boolean removeRoom(int roomNumber) {
         boolean removed = rooms.removeIf(r -> r.getRoomNumber() == roomNumber);
         if (removed) {
@@ -73,12 +56,9 @@ public class HotelManager {
         return removed;
     }
 
-    /** Retorna cópia defensiva da lista de quartos. */
     public List<Room> getRooms() {
         return new ArrayList<>(rooms);
     }
-
-    // ── Reservation ────────────────────────────────────────────────────────
 
     public boolean addReservation(Reservation reservation) {
         if (reservations.contains(reservation)) return false;
@@ -87,11 +67,6 @@ public class HotelManager {
         return true;
     }
 
-    /**
-     * Remove reserva pelo índice na lista.
-     *
-     * @return true se removida com sucesso
-     */
     public boolean removeReservation(int index) {
         if (index < 0 || index >= reservations.size()) return false;
         reservations.remove(index);
@@ -99,7 +74,6 @@ public class HotelManager {
         return true;
     }
 
-    /** Retorna cópia defensiva da lista de reservas. */
     public List<Reservation> getReservations() {
         return new ArrayList<>(reservations);
     }

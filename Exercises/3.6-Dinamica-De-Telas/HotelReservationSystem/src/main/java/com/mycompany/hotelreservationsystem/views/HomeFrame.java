@@ -13,7 +13,6 @@ import java.util.List;
  * Tela principal do Hotel Reservation System.
  */
 public class HomeFrame extends javax.swing.JFrame {
-
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeFrame.class.getName());
 
     private final HotelManager hotelManager;
@@ -88,10 +87,10 @@ public class HomeFrame extends javax.swing.JFrame {
         navPanel.setOpaque(false);
         navPanel.setBorder(BorderFactory.createEmptyBorder(14, 0, 0, 0));
 
-        btnGuests       = buildNavButton("👤  Hóspedes",  new Color(52, 152, 219));
-        btnRooms        = buildNavButton("🛏  Quartos",   new Color(46, 204, 113));
-        btnReservations = buildNavButton("📋  Reservas",  new Color(155, 89, 182));
-        btnExit         = buildNavButton("🚪  Sair",      new Color(149, 165, 166));
+        btnGuests = buildNavButton("👤  Hóspedes", new Color(52, 152, 219));
+        btnRooms = buildNavButton("🛏  Quartos", new Color(46, 204, 113));
+        btnReservations = buildNavButton("📋  Reservas", new Color(155, 89, 182));
+        btnExit = buildNavButton("🚪  Sair", new Color(149, 165, 166));
 
         navPanel.add(btnGuests);
         navPanel.add(btnRooms);
@@ -106,9 +105,7 @@ public class HomeFrame extends javax.swing.JFrame {
         southPanel.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
 
         JPanel tableWrapper = new JPanel(new BorderLayout());
-        tableWrapper.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Reservas Recentes",
-                TitledBorder.LEFT, TitledBorder.TOP));
+        tableWrapper.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Reservas Recentes", TitledBorder.LEFT, TitledBorder.TOP));
         tableWrapper.setOpaque(false);
 
         String[] cols = {"Hóspede", "Documento", "Quarto", "Tipo", "Check-in", "Check-out"};
@@ -144,9 +141,7 @@ public class HomeFrame extends javax.swing.JFrame {
         btnRooms.addActionListener(e -> openRooms());
         btnReservations.addActionListener(e -> openReservations());
         btnExit.addActionListener(e -> {
-            int c = JOptionPane.showConfirmDialog(this,
-                    "Deseja sair do sistema?", "Sair",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int c = JOptionPane.showConfirmDialog(this, "Deseja sair do sistema?", "Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (c == JOptionPane.YES_OPTION) System.exit(0);
         });
 
@@ -177,8 +172,8 @@ public class HomeFrame extends javax.swing.JFrame {
         card.add(lblCaption);
 
         switch (fieldName) {
-            case "lblGuestCount"       -> lblGuestCount = lblValue;
-            case "lblRoomCount"        -> lblRoomCount  = lblValue;
+            case "lblGuestCount" -> lblGuestCount = lblValue;
+            case "lblRoomCount" -> lblRoomCount  = lblValue;
             case "lblReservationCount" -> lblReservationCount = lblValue;
         }
 
@@ -199,7 +194,7 @@ public class HomeFrame extends javax.swing.JFrame {
         Color hover = bg.darker();
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override public void mouseEntered(java.awt.event.MouseEvent e) { btn.setBackground(hover); }
-            @Override public void mouseExited (java.awt.event.MouseEvent e) { btn.setBackground(bg);    }
+            @Override public void mouseExited (java.awt.event.MouseEvent e) { btn.setBackground(bg); }
         });
 
         return btn;
@@ -230,8 +225,8 @@ public class HomeFrame extends javax.swing.JFrame {
     }
 
     private void refreshDashboard() {
-        int guests       = hotelManager.getGuests().size();
-        int rooms        = hotelManager.getRooms().size();
+        int guests = hotelManager.getGuests().size();
+        int rooms = hotelManager.getRooms().size();
         int reservations = hotelManager.getReservations().size();
 
         lblGuestCount.setText(String.valueOf(guests));
@@ -253,9 +248,7 @@ public class HomeFrame extends javax.swing.JFrame {
             });
         }
 
-        setStatus(String.format(
-                "Dashboard atualizado — %d hóspede(s), %d quarto(s), %d reserva(s).",
-                guests, rooms, reservations), false);
+        setStatus(String.format("Dashboard atualizado — %d hóspede(s), %d quarto(s), %d reserva(s).", guests, rooms, reservations), false);
     }
 
     private void setStatus(String msg, boolean error) {

@@ -12,13 +12,6 @@ import java.util.List;
 
 /**
  * Diálogo modal para seleção de um hóspede cadastrado.
- *
- * <p>Uso típico:
- * <pre>
- *   DlgSelecionarHospede dlg = new DlgSelecionarHospede(owner, hotelManager);
- *   dlg.setVisible(true);
- *   Guest escolhido = dlg.getGuestSelecionado(); // null se cancelado
- * </pre>
  */
 public class DlgSelecionarHospede extends JDialog {
 
@@ -36,8 +29,8 @@ public class DlgSelecionarHospede extends JDialog {
     private final List<Guest> guests;
 
     /**
-     * @param owner        janela pai (para centralização e modalidade)
-     * @param hotelManager gerenciador compartilhado do hotel
+     * @param owner        
+     * @param hotelManager 
      */
     public DlgSelecionarHospede(Window owner, HotelManager hotelManager) {
         super(owner, "Selecionar Hóspede", ModalityType.APPLICATION_MODAL);
@@ -54,7 +47,6 @@ public class DlgSelecionarHospede extends JDialog {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setContentPane(mainPanel);
 
-        // ── Filtro de busca ───────────────────────────────────────────────
         JPanel filterPanel = new JPanel(new BorderLayout(6, 0));
         filterPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
         filterPanel.add(new JLabel("Filtrar:"), BorderLayout.WEST);
@@ -63,7 +55,6 @@ public class DlgSelecionarHospede extends JDialog {
         filterPanel.add(txtFiltro, BorderLayout.CENTER);
         mainPanel.add(filterPanel, BorderLayout.NORTH);
 
-        // ── Tabela de hóspedes ────────────────────────────────────────────
         String[] cols = {"Nome", "Documento", "Contato", "Endereço"};
         tableModel = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -94,7 +85,6 @@ public class DlgSelecionarHospede extends JDialog {
 
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
-        // ── Botões ────────────────────────────────────────────────────────
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 4));
 
         btnSelecionar = new JButton("Selecionar");
@@ -110,7 +100,6 @@ public class DlgSelecionarHospede extends JDialog {
         btnPanel.add(btnCancelar);
         mainPanel.add(btnPanel, BorderLayout.SOUTH);
 
-        // ── Listeners ─────────────────────────────────────────────────────
         txtFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e)  { applyFilter(); }
             public void removeUpdate(javax.swing.event.DocumentEvent e)  { applyFilter(); }
@@ -123,7 +112,6 @@ public class DlgSelecionarHospede extends JDialog {
             }
         });
 
-        // Duplo-clique seleciona diretamente
         tableGuests.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override public void mouseClicked(java.awt.event.MouseEvent e) {
                 if (e.getClickCount() == 2) confirmarSelecao();
@@ -156,7 +144,6 @@ public class DlgSelecionarHospede extends JDialog {
         if (text.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            // Filtra nas colunas Nome (0) e Documento (1)
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, 0, 1));
         }
         int visible = tableGuests.getRowCount();
@@ -167,7 +154,6 @@ public class DlgSelecionarHospede extends JDialog {
         int viewRow = tableGuests.getSelectedRow();
         if (viewRow < 0) return;
 
-        // Converte índice da view para índice do modelo (necessário com sorter)
         int modelRow = tableGuests.convertRowIndexToModel(viewRow);
         String document = (String) tableModel.getValueAt(modelRow, 1);
 
@@ -179,9 +165,6 @@ public class DlgSelecionarHospede extends JDialog {
         dispose();
     }
 
-    /**
-     * Retorna o hóspede selecionado, ou {@code null} se o diálogo foi cancelado.
-     */
     public Guest getGuestSelecionado() {
         return guestSelecionado;
     }

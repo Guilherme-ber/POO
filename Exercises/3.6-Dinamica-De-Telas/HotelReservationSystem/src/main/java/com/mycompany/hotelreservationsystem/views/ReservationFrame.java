@@ -12,23 +12,15 @@ import java.awt.*;
 
 /**
  * Tela de cadastro e listagem de reservas.
- *
- * <p>A seleção de hóspede e quarto é feita via JDialogs modais
- * ({@link DlgSelecionarHospede} e {@link DlgSelecionarQuarto}),
- * garantindo que a escolha seja finalizada antes de prosseguir.
  */
 public class ReservationFrame extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger =
-            java.util.logging.Logger.getLogger(ReservationFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReservationFrame.class.getName());
 
     private final HotelManager hotelManager;
 
-    // ── Estado do formulário ──
     private Guest guestSelecionado = null;
     private Room  roomSelecionada  = null;
 
-    // ── Componentes do formulário ──
     private JTextField txtGuestDisplay;
     private JTextField txtRoomDisplay;
     private JTextField txtCheckIn;
@@ -41,11 +33,9 @@ public class ReservationFrame extends javax.swing.JFrame {
     private JButton btnClear;
     private JButton btnBack;
 
-    // ── Tabela ──
     private JTable tableReservations;
     private DefaultTableModel tableModel;
 
-    // ── Status ──
     private JLabel lblStatus;
 
     public ReservationFrame(HotelManager hotelManager) {
@@ -70,9 +60,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setContentPane(mainPanel);
 
-        // ══════════════════════════════════════════════════════════════════
-        // NORTE — Formulário de reserva
-        // ══════════════════════════════════════════════════════════════════
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Nova Reserva",
@@ -83,7 +70,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // ── Linha 0 — Hóspede ──
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
         formPanel.add(new JLabel("Hóspede:"), gbc);
 
@@ -100,7 +86,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         gbc.gridx = 2; gbc.weightx = 0;
         formPanel.add(btnSelecionarHospede, gbc);
 
-        // ── Linha 1 — Quarto ──
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         formPanel.add(new JLabel("Quarto:"), gbc);
 
@@ -117,7 +102,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         gbc.gridx = 2; gbc.weightx = 0;
         formPanel.add(btnSelecionarQuarto, gbc);
 
-        // ── Linha 2 — Datas ──
         gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0;
         formPanel.add(new JLabel("Check-in (DD/MM/AAAA):"), gbc);
 
@@ -136,9 +120,6 @@ public class ReservationFrame extends javax.swing.JFrame {
 
         mainPanel.add(formPanel, BorderLayout.NORTH);
 
-        // ══════════════════════════════════════════════════════════════════
-        // CENTRO — Botões de ação
-        // ══════════════════════════════════════════════════════════════════
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 6));
 
         btnAdd    = new JButton("Confirmar Reserva");
@@ -168,9 +149,6 @@ public class ReservationFrame extends javax.swing.JFrame {
 
         mainPanel.add(btnPanel, BorderLayout.CENTER);
 
-        // ══════════════════════════════════════════════════════════════════
-        // SUL — Tabela de reservas cadastradas
-        // ══════════════════════════════════════════════════════════════════
         String[] columns = {
             "#", "Hóspede", "Documento", "Quarto", "Tipo", "Preço/Noite (R$)", "Check-in", "Check-out"
         };
@@ -193,9 +171,7 @@ public class ReservationFrame extends javax.swing.JFrame {
         tableReservations.getColumnModel().getColumn(7).setPreferredWidth(90);
 
         JPanel tablePanel = new JPanel(new BorderLayout(0, 4));
-        tablePanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Reservas Cadastradas",
-                TitledBorder.LEFT, TitledBorder.TOP));
+        tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Reservas Cadastradas", TitledBorder.LEFT, TitledBorder.TOP));
         tablePanel.add(new JScrollPane(tableReservations), BorderLayout.CENTER);
 
         lblStatus = new JLabel(" ");
@@ -204,7 +180,6 @@ public class ReservationFrame extends javax.swing.JFrame {
 
         mainPanel.add(tablePanel, BorderLayout.SOUTH);
 
-        // ── Listeners ─────────────────────────────────────────────────────
         btnSelecionarHospede.addActionListener(e -> abrirDialogoHospede());
         btnSelecionarQuarto.addActionListener(e -> abrirDialogoQuarto());
         btnAdd.addActionListener(e -> addReservation());
@@ -217,12 +192,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    // ── Abertura dos diálogos modais ───────────────────────────────────────
-
-    /**
-     * Abre {@link DlgSelecionarHospede} de forma modal.
-     * O fluxo só continua após o usuário fechar o diálogo (escolha ou cancelamento).
-     */
     private void abrirDialogoHospede() {
         if (hotelManager.getGuests().isEmpty()) {
             JOptionPane.showMessageDialog(this,
@@ -241,9 +210,6 @@ public class ReservationFrame extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Abre {@link DlgSelecionarQuarto} de forma modal.
-     */
     private void abrirDialogoQuarto() {
         if (hotelManager.getRooms().isEmpty()) {
             JOptionPane.showMessageDialog(this,
@@ -253,7 +219,7 @@ public class ReservationFrame extends javax.swing.JFrame {
         }
 
         DlgSelecionarQuarto dlg = new DlgSelecionarQuarto(this, hotelManager);
-        dlg.setVisible(true);  // bloqueia até fechar (modal)
+        dlg.setVisible(true);
 
         Room escolhido = dlg.getRoomSelecionado();
         if (escolhido != null) {
@@ -263,8 +229,6 @@ public class ReservationFrame extends javax.swing.JFrame {
                     + "  — R$ " + String.format("%.2f", escolhido.getPricePerNight()) + "/noite");
         }
     }
-
-    // ── Ações da tela ──────────────────────────────────────────────────────
 
     private void addReservation() {
         if (guestSelecionado == null) {
@@ -335,7 +299,7 @@ public class ReservationFrame extends javax.swing.JFrame {
 
     private void clearFields() {
         guestSelecionado = null;
-        roomSelecionada  = null;
+        roomSelecionada = null;
         txtGuestDisplay.setText("");
         txtRoomDisplay.setText("");
         txtCheckIn.setText("");

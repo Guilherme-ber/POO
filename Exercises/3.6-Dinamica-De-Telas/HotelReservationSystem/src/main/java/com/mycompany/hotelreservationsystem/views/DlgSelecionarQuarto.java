@@ -12,13 +12,6 @@ import java.util.List;
 
 /**
  * Diálogo modal para seleção de um quarto cadastrado.
- *
- * <p>Uso típico:
- * <pre>
- *   DlgSelecionarQuarto dlg = new DlgSelecionarQuarto(owner, hotelManager);
- *   dlg.setVisible(true);
- *   Room escolhido = dlg.getRoomSelecionado(); // null se cancelado
- * </pre>
  */
 public class DlgSelecionarQuarto extends JDialog {
 
@@ -36,8 +29,8 @@ public class DlgSelecionarQuarto extends JDialog {
     private final List<Room> rooms;
 
     /**
-     * @param owner        janela pai
-     * @param hotelManager gerenciador compartilhado do hotel
+     * @param owner        
+     * @param hotelManager
      */
     public DlgSelecionarQuarto(Window owner, HotelManager hotelManager) {
         super(owner, "Selecionar Quarto", ModalityType.APPLICATION_MODAL);
@@ -54,7 +47,6 @@ public class DlgSelecionarQuarto extends JDialog {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setContentPane(mainPanel);
 
-        // ── Filtro de busca ───────────────────────────────────────────────
         JPanel filterPanel = new JPanel(new BorderLayout(6, 0));
         filterPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
         filterPanel.add(new JLabel("Filtrar:"), BorderLayout.WEST);
@@ -63,7 +55,6 @@ public class DlgSelecionarQuarto extends JDialog {
         filterPanel.add(txtFiltro, BorderLayout.CENTER);
         mainPanel.add(filterPanel, BorderLayout.NORTH);
 
-        // ── Tabela de quartos ─────────────────────────────────────────────
         String[] cols = {"Nº Quarto", "Tipo", "Preço / Noite (R$)"};
         tableModel = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -93,7 +84,6 @@ public class DlgSelecionarQuarto extends JDialog {
 
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
-        // ── Botões ────────────────────────────────────────────────────────
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 4));
 
         btnSelecionar = new JButton("Selecionar");
@@ -109,7 +99,6 @@ public class DlgSelecionarQuarto extends JDialog {
         btnPanel.add(btnCancelar);
         mainPanel.add(btnPanel, BorderLayout.SOUTH);
 
-        // ── Listeners ─────────────────────────────────────────────────────
         txtFiltro.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e)  { applyFilter(); }
             public void removeUpdate(javax.swing.event.DocumentEvent e)  { applyFilter(); }
@@ -122,7 +111,6 @@ public class DlgSelecionarQuarto extends JDialog {
             }
         });
 
-        // Duplo-clique seleciona diretamente
         tableRooms.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override public void mouseClicked(java.awt.event.MouseEvent e) {
                 if (e.getClickCount() == 2) confirmarSelecao();
@@ -157,7 +145,6 @@ public class DlgSelecionarQuarto extends JDialog {
         if (text.isEmpty()) {
             sorter.setRowFilter(null);
         } else {
-            // Filtra nas colunas Nº (0) e Tipo (1)
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, 0, 1));
         }
         lblStatus.setText(tableRooms.getRowCount() + " quarto(s) encontrado(s).");
@@ -178,9 +165,6 @@ public class DlgSelecionarQuarto extends JDialog {
         dispose();
     }
 
-    /**
-     * Retorna o quarto selecionado, ou {@code null} se o diálogo foi cancelado.
-     */
     public Room getRoomSelecionado() {
         return roomSelecionado;
     }

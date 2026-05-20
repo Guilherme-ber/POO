@@ -9,12 +9,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 /**
- * Tela de cadastro e listagem de hóspedes.
+ * Tela de cadastro e listagem de hóspedes
  */
 public class GuestFrame extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger =
-            java.util.logging.Logger.getLogger(GuestFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuestFrame.class.getName());
 
     private final HotelManager hotelManager;
 
@@ -45,7 +43,6 @@ public class GuestFrame extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
         setTitle("Gerenciamento de Hóspedes");
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(700, 550));
@@ -55,11 +52,8 @@ public class GuestFrame extends javax.swing.JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setContentPane(mainPanel);
 
-        // ── Formulário ────────────────────────────────────────────────────
         JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Dados do Hóspede",
-                TitledBorder.LEFT, TitledBorder.TOP));
+        formPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Dados do Hóspede", TitledBorder.LEFT, TitledBorder.TOP));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(6, 8, 6, 8);
@@ -92,13 +86,12 @@ public class GuestFrame extends javax.swing.JFrame {
 
         mainPanel.add(formPanel, BorderLayout.NORTH);
 
-        // ── Botões ────────────────────────────────────────────────────────
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 6));
 
-        btnAdd    = new JButton("Adicionar Hóspede");
+        btnAdd = new JButton("Adicionar Hóspede");
         btnRemove = new JButton("Remover Selecionado");
-        btnClear  = new JButton("Limpar Campos");
-        btnBack   = new JButton("Voltar");
+        btnClear = new JButton("Limpar Campos");
+        btnBack = new JButton("Voltar");
 
         btnAdd.setMnemonic('A');
         btnRemove.setMnemonic('R');
@@ -117,7 +110,6 @@ public class GuestFrame extends javax.swing.JFrame {
 
         mainPanel.add(btnPanel, BorderLayout.CENTER);
 
-        // ── Tabela ────────────────────────────────────────────────────────
         String[] columns = {"Nome", "Documento", "Contato", "Endereço"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -134,9 +126,7 @@ public class GuestFrame extends javax.swing.JFrame {
         tableGuests.getColumnModel().getColumn(3).setPreferredWidth(220);
 
         JPanel tablePanel = new JPanel(new BorderLayout(0, 4));
-        tablePanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Hóspedes Cadastrados",
-                TitledBorder.LEFT, TitledBorder.TOP));
+        tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Hóspedes Cadastrados", TitledBorder.LEFT, TitledBorder.TOP));
         tablePanel.add(new JScrollPane(tableGuests), BorderLayout.CENTER);
 
         lblStatus = new JLabel(" ");
@@ -145,7 +135,6 @@ public class GuestFrame extends javax.swing.JFrame {
 
         mainPanel.add(tablePanel, BorderLayout.SOUTH);
 
-        // ── Listeners ─────────────────────────────────────────────────────
         btnAdd.addActionListener(e -> addGuest());
         btnRemove.addActionListener(e -> removeGuest());
         btnClear.addActionListener(e -> clearFields());
@@ -159,9 +148,7 @@ public class GuestFrame extends javax.swing.JFrame {
         setSize(750, 520);
         setLocationRelativeTo(null);
     }
-
-    // ── Ações ──────────────────────────────────────────────────────────────
-
+    
     private void addGuest() {
         String name     = txtName.getText().trim();
         String document = txtDocument.getText().trim();
@@ -193,7 +180,7 @@ public class GuestFrame extends javax.swing.JFrame {
         }
 
         String document = (String) tableModel.getValueAt(selectedRow, 1);
-        String name     = (String) tableModel.getValueAt(selectedRow, 0);
+        String name = (String) tableModel.getValueAt(selectedRow, 0);
 
         int confirm = JOptionPane.showConfirmDialog(
                 this,
@@ -204,7 +191,6 @@ public class GuestFrame extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            // ✔ Usa o método correto do manager — NÃO muta a cópia defensiva
             hotelManager.removeGuest(document);
             setStatus("Hóspede \"" + name + "\" removido.", false);
             clearFields();

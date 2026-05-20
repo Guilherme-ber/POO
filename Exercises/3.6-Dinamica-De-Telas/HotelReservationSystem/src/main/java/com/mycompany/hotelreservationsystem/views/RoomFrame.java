@@ -53,8 +53,7 @@ public class RoomFrame extends javax.swing.JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setContentPane(mainPanel);
-
-        // ── Formulário ────────────────────────────────────────────────────
+        
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Dados do Quarto",
@@ -89,7 +88,6 @@ public class RoomFrame extends javax.swing.JFrame {
 
         mainPanel.add(formPanel, BorderLayout.NORTH);
 
-        // ── Botões ────────────────────────────────────────────────────────
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 6));
 
         btnAdd    = new JButton("Adicionar Quarto");
@@ -109,7 +107,6 @@ public class RoomFrame extends javax.swing.JFrame {
 
         mainPanel.add(btnPanel, BorderLayout.CENTER);
 
-        // ── Tabela ────────────────────────────────────────────────────────
         String[] columns = {"Nº Quarto", "Tipo", "Preço / Noite (R$)"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -136,7 +133,6 @@ public class RoomFrame extends javax.swing.JFrame {
 
         mainPanel.add(tablePanel, BorderLayout.SOUTH);
 
-        // ── Listeners ─────────────────────────────────────────────────────
         btnAdd.addActionListener(e -> addRoom());
         btnRemove.addActionListener(e -> removeRoom());
         btnClear.addActionListener(e -> clearFields());
@@ -150,8 +146,6 @@ public class RoomFrame extends javax.swing.JFrame {
         setSize(640, 490);
         setLocationRelativeTo(null);
     }
-
-    // ── Ações ──────────────────────────────────────────────────────────────
 
     private void addRoom() {
         String numberStr = txtRoomNumber.getText().trim();
@@ -212,7 +206,6 @@ public class RoomFrame extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            // ✔ Usa o método correto do manager — NÃO muta a cópia defensiva
             hotelManager.removeRoom(roomNumber);
             setStatus("Quarto nº " + roomNumber + " removido.", false);
             clearFields();
