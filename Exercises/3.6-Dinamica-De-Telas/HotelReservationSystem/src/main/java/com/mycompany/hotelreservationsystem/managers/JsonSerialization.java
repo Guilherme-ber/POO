@@ -5,6 +5,7 @@ import com.mycompany.hotelreservationsystem.models.*;
 
 import java.io.*;
 import java.util.List;
+import java.util.Locale;
 
 public class JsonSerialization implements FilePersistence {
     private static final String GUESTS_FILE = "guests.json";
@@ -74,8 +75,10 @@ public class JsonSerialization implements FilePersistence {
             writer.println("[");
             for (int i = 0; i < rooms.size(); i++) {
                 Room r = rooms.get(i);
-                writer.print(String.format("  {\"roomNumber\":%d, \"type\":\"%s\", \"pricePerNight\":%.2f}",
-                        r.getRoomNumber(), r.getType(), r.getPricePerNight()).replace(",", "."));
+                
+                writer.print(String.format(Locale.US, "  {\"roomNumber\":%d, \"type\":\"%s\", \"pricePerNight\":%.2f}",
+                r.getRoomNumber(), r.getType(), r.getPricePerNight()));
+                
                 if (i < rooms.size() - 1) {
                     writer.println(",");
                 } else {

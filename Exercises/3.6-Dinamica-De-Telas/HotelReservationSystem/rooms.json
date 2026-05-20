@@ -1,7 +1,0 @@
-[
-  {"roomNumber":1. "type":"Duplo". "pricePerNight":500.00},
-  {"roomNumber":2. "type":"Triplo". "pricePerNight":400.00},
-  {"roomNumber":3. "type":"Solteiro". "pricePerNight":300.00},
-  {"roomNumber":4. "type":"Suite". "pricePerNight":800.00},
-  {"roomNumber":5. "type":"Suite Presidencial". "pricePerNight":1000.00}
-]
