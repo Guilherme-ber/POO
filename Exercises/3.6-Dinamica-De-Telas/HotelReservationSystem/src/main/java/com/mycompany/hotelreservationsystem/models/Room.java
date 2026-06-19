@@ -31,16 +31,27 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room " + roomNumber + " (" + type + ") - $" + pricePerNight;
+        return "Quarto nº:" + roomNumber + " (" + type + ") - $" + pricePerNight;
     }
     
     // Getters and Setters
-    public int getRoomNumber() { return roomNumber; }
-    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
-
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public double getPricePerNight() { return pricePerNight; }
-    public void setPricePerNight(double pricePerNight) { this.pricePerNight = pricePerNight; }
+    public int getRoomNumber() { 
+        return roomNumber; 
+    }
+    public String getType() { 
+        return type; 
+    }
+    public double getPricePerNight() { 
+        return pricePerNight; 
+    }
+    
+    public void setRoomNumber(int roomNumber) { 
+        this.roomNumber = roomNumber; 
+    }
+    public void setType(String type) { 
+        this.type = type; 
+    }
+    public void setPricePerNight(double pricePerNight) { 
+        this.pricePerNight = pricePerNight; 
+    }
 }

@@ -1,11 +1,13 @@
 package com.mycompany.hotelreservationsystem;
 
-/**
- *
- * @author guilherme
- */
+import com.mycompany.hotelreservationsystem.views.HomeFrame;
+import javax.swing.SwingUtilities;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SwingUtilities.invokeLater(() -> {
+            HomeFrame home = new HomeFrame();
+            home.setVisible(true);
+        });
     }
 }

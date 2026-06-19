@@ -33,19 +33,33 @@ public class Guest {
 
     @Override
     public String toString() {
-        return name + " (Doc: " + document + ")";
+        return name + " (Documento: " + document + ")";
     }
     
     // Getters and Setters
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getDocument() { return document; }
-    public void setDocument(String document) { this.document = document; }
-
-    public String getContact() { return contact; }
-    public void setContact(String contact) { this.contact = contact; }
-
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getName() {
+        return name;
+    }
+    public String getDocument() {
+        return document;
+    }
+    public String getContact() {
+        return contact;
+    }
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDocument(String document) {
+        this.document = document;
+    }
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
