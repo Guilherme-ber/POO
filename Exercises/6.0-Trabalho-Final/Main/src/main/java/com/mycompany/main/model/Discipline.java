@@ -34,6 +34,21 @@ public class Discipline {
        this.studentList = new ArrayList<>(other.getStudentList()); 
     }
    
+    // ToString
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome da disciplina: ").append(name);
+        sb.append(" | Semestre: ").append(semester);
+        sb.append(" | Horário: ").append(time).append("\n");
+        sb.append("-> ").append(teacher != null ? teacher.toString() : "Sem professor cadastrado").append("\n");
+        sb.append("-> Alunos Matriculados: ").append(studentList.size()).append("\n");
+        for (Student s : studentList) {
+            sb.append("   • ").append(s.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    
     // Getters and Setters
     public String getName() {
          return name;

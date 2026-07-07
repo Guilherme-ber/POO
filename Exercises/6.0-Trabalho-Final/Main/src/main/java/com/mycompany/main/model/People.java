@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author guilh
  */
-public class People {
+public abstract class People {
     private String name;
     private char sex;
     private int age;
@@ -26,11 +26,8 @@ public class People {
     // Hashcode
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + this.sex;
-        hash = 67 * hash + this.age;
-        hash = 67 * hash + Objects.hashCode(this.cpf);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.cpf);
         return hash;
     }
 
@@ -47,15 +44,6 @@ public class People {
             return false;
         }
         final People other = (People) obj;
-        if (this.sex != other.sex) {
-            return false;
-        }
-        if (this.age != other.age) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
         return Objects.equals(this.cpf, other.cpf);
     }
 
