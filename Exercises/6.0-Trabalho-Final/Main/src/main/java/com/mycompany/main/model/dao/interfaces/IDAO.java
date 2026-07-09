@@ -1,4 +1,4 @@
-package com.mycompany.main.model.dao;
+package com.mycompany.main.model.dao.interfaces;
 
 // Utils
 import java.util.List;

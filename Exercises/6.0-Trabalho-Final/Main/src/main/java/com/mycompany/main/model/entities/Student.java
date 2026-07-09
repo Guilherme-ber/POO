@@ -1,4 +1,4 @@
-package com.mycompany.main.model;
+package com.mycompany.main.model.entities;
 
 /**
  *
@@ -7,6 +7,9 @@ package com.mycompany.main.model;
 public class Student extends People {
     private String registration;
     private int entryYear;
+    
+    public Student() {
+    }
     
     // Constructor
     public Student(String name, char sex, int age, String cpf, String registration, int entryYear) {

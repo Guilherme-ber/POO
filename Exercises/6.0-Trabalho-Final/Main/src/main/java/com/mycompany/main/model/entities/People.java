@@ -1,4 +1,4 @@
-package com.mycompany.main.model;
+package com.mycompany.main.model.entities;
 
 // Utils
 import java.util.Objects;
