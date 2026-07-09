@@ -8,6 +8,7 @@ import java.util.Objects;
  * @author guilh
  */
 public abstract class People {
+    private int id;
     private String name;
     private char sex;
     private int age;
@@ -16,7 +17,8 @@ public abstract class People {
     // Constructors
     public People() {
     }
-    public People(String name, char sex, int age, String cpf) {
+    public People(int id, String name, char sex, int age, String cpf) {
+        this.id = id;
         this.name = name;
         this.sex = sex;
         this.age = age;
@@ -59,6 +61,9 @@ public abstract class People {
     }
     
     // Getters and Setters
+    public int getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
@@ -72,6 +77,9 @@ public abstract class People {
         return cpf;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setName(String name) {
         this.name = name;
     }

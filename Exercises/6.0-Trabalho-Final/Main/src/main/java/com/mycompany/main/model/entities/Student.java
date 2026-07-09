@@ -12,8 +12,8 @@ public class Student extends People {
     }
     
     // Constructor
-    public Student(String name, char sex, int age, String cpf, String registration, int entryYear) {
-        super(name, sex, age, cpf);
+    public Student(int id, String name, char sex, int age, String cpf, String registration, int entryYear) {
+        super(id, name, sex, age, cpf);
         this.registration = registration;
         this.entryYear = entryYear;
     }

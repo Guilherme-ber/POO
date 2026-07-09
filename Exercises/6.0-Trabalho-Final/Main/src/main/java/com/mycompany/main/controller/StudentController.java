@@ -32,25 +32,27 @@ public class StudentController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
     
-    public void removeStudent(Student student) {
-        // Validations
-        
+    public void removeStudent(int id) {
         // Remove
-        repository.delete(student);
+        repository.delete(id);
     }
     
-    public void updateStudent(Student student) {
-        // Validations
-        
+    public void updateStudent(int id, String name, char sex, int age, String cpf, String registration, int entryYear) {
         // Remove
-        repository.update(student);
+        removeStudent(id);
+        
+        // Add
+        addStudent(name, sex, age, cpf, registration, entryYear);
     }
     
-    public Student findStudent(){
-        
-        return null;
+    public Student findStudent(int id) {
+        try {
+            Student sd = repository.searchById(id);
+            return sd;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
