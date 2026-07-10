@@ -1,15 +1,26 @@
 package com.mycompany.main;
 
+// View
+import com.mycompany.main.view.FrHome;
+import javax.swing.SwingUtilities;
+
+// DAO
+import com.mycompany.main.model.dao.interfaces.IDAO;
+
 /**
  *
  * @author guilh
  */
 public class Main {
     public static void main(String[] args) {
-        // Exemplo de como será a inicialização:
+        // DAO
         // IDAO meuDao = new SQLiteUsuarioDAO(); // Ou uma implementação de arquivo;
         // UsuarioController controller = new UsuarioController(meuDao);
-        // TelaPrincipal view = new TelaPrincipal(controller);
-        // view.setVisible(true);
+        
+        // com.formdev.flatlaf.FlatDarkLaf.setup();
+        // SwingUtilities.invokeLater(() -> new FrHome().setVisible(true));
+        
+        FrHome view = new FrHome();
+        view.setVisible(true);
     }
 }

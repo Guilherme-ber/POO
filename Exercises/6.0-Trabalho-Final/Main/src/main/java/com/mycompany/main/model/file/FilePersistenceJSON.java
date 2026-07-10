@@ -15,30 +15,20 @@ import java.util.Scanner;
  * @author guilh
  */
 public class FilePersistenceJSON {
-    public void saveToFile(String text, String pathname) {
-        try {
-            FileWriter file = new FileWriter(pathname);
-            PrintWriter recordFile = new PrintWriter(file);
+    public void saveToFile(String text, String pathname) throws IOException {
+        try (FileWriter file = new FileWriter(pathname);
+            PrintWriter recordFile = new PrintWriter(file)) {
             recordFile.print(text);
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     
     public String loadFromFile(String pathname) throws FileNotFoundException {
-        String contentRead = "";
-        try {
-            File file = new File(pathname);
-            Scanner reader = new Scanner(file);
+        File file = new File(pathname);
+        if (!file.exists()) return "";
 
+        try (Scanner reader = new Scanner(file)) {
             reader.useDelimiter("\\Z");
-            while(reader.hasNext()) {
-                contentRead += reader.next();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return reader.hasNext() ? reader.next() : "";
         }
-        return contentRead;
     }
 }

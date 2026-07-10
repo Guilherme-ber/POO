@@ -9,17 +9,19 @@ import java.util.ArrayList;
  * @author guilh
  */
 public class Discipline {
-   private String name;
-   private int semester;
-   private String time;
-   private Teacher teacher;
-   private List<Student> studentList;
+    private int id;
+    private String name;
+    private int semester;
+    private String time;
+    private Teacher teacher;
+    private List<Student> studentList;
    
     // Constructor
     public Discipline() {
         this.studentList = new ArrayList<>();
     }
-    public Discipline(String name, int semester, String time, Teacher teacher, List<Student> studentList) {
+    public Discipline(int id, String name, int semester, String time, Teacher teacher, List<Student> studentList) {
+        this.id = id;
         this.name = name;
         this.semester = semester;
         this.time = time;
@@ -49,7 +51,25 @@ public class Discipline {
         return sb.toString();
     }
     
+    // Equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Discipline other = (Discipline) obj;
+        return this.id == other.id;
+    }
+
+    // HashCode
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this.id);
+    }
+
     // Getters and Setters
+    public int getId() {
+        return id;
+    }
     public String getName() {
          return name;
      }
@@ -66,6 +86,9 @@ public class Discipline {
          return studentList;
      }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setName(String name) {
          this.name = name;
      }

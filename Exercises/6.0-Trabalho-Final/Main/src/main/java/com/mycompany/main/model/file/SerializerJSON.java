@@ -2,13 +2,6 @@ package com.mycompany.main.model.file;
 
 // Jackson
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-// Exeptions
-import java.io.IOException;
-
-// Models
-import com.mycompany.main.model.entities.Student;
 
 // Utils
 import java.util.List;
@@ -19,30 +12,19 @@ import java.util.List;
  */
 public class SerializerJSON {
     // Serializa um objeto
-    public String toFile(List<Student> students) {
-        try {
-            // Convertendo objeto filme para JSON 
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(students);
+    public <T> String toFile(List<T> list) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(list);
 
-            return jsonString;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return jsonString;
     }
 
     // Desserializa JSON em formato String
-    public List<Student> fromFile(String jsonString) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-             
-            List<Student> students = mapper.readValue(jsonString, new TypeReference<List<Student>>() {});
-            
-            return students;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public <T> List<T> fromFile(String jsonString, Class<T> type) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<T> list = mapper.readValue(jsonString, mapper.getTypeFactory().constructCollectionType(List.class, type));
+
+        return list;
     }
 }
