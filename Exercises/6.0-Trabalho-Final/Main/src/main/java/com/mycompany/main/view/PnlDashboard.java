@@ -1,20 +1,104 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.mycompany.main.view;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import com.mycompany.main.controller.*;
+
 /**
- *
+ * Dashboards panel
  * @author guilh
  */
 public class PnlDashboard extends javax.swing.JPanel {
+    private StudentController studentController;
+    private TeacherController teacherController;
+    private DisciplineController disciplineController;
+    private JLabel lblTotalStudents;
+    private JLabel lblTotalTeachers;
+    private JLabel lblTotalDisciplines;
 
-    /**
-     * Creates new form PnlDashboard
-     */
     public PnlDashboard() {
-        initComponents();
+        initComponentsCustom();
+    }
+
+    public void initControllers(StudentController sdt, TeacherController tch, DisciplineController disc) {
+        this.studentController = sdt;
+        this.teacherController = tch;
+        this.disciplineController = disc;
+        refreshDashboard();
+    }
+
+    private void initComponentsCustom() {
+        this.setLayout(new BorderLayout(0, 25));
+        this.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        JPanel pnlWelcome = new JPanel(new GridLayout(2, 1, 0, 4));
+        
+        JLabel lblTitle = new JLabel("Olá, bem-vindo ao sistema Coordenador!");
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblTitle.setForeground(new Color(40, 40, 40));
+
+        pnlWelcome.add(lblTitle);
+        this.add(pnlWelcome, BorderLayout.NORTH);
+
+        JPanel pnlCards = new JPanel(new GridLayout(1, 3, 20, 0));
+        pnlCards.setPreferredSize(new Dimension(0, 120));
+
+        lblTotalStudents = new JLabel("0");
+        lblTotalTeachers = new JLabel("0");
+        lblTotalDisciplines = new JLabel("0");
+
+        pnlCards.add(createMinimalCard("Alunos Matriculados", lblTotalStudents));
+        pnlCards.add(createMinimalCard("Professores Ativos", lblTotalTeachers));
+        pnlCards.add(createMinimalCard("Disciplinas Ofertadas", lblTotalDisciplines));
+
+        JPanel pnlCenterContainer = new JPanel(new BorderLayout(0, 0));
+        pnlCenterContainer.add(pnlCards, BorderLayout.NORTH);
+
+        JPanel pnlInfo = new JPanel(new BorderLayout());
+        pnlInfo.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
+            new EmptyBorder(20, 20, 20, 20)
+        ));
+
+        this.add(pnlCenterContainer, BorderLayout.CENTER);
+    }
+
+    private JPanel createMinimalCard(String title, JLabel lblNumber) {
+        JPanel card = new JPanel(new BorderLayout(0, 10));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+            new EmptyBorder(18, 20, 18, 20)
+        ));
+        card.setBackground(new Color(252, 252, 252));
+
+        JLabel lblHeader = new JLabel(title);
+        lblHeader.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblHeader.setForeground(new Color(110, 110, 110));
+
+        lblNumber.setFont(new Font("Segoe UI", Font.BOLD, 36));
+        lblNumber.setForeground(new Color(30, 30, 30));
+
+        card.add(lblHeader, BorderLayout.NORTH);
+        card.add(lblNumber, BorderLayout.CENTER);
+        return card;
+    }
+
+    public void refreshDashboard() {
+        if (studentController != null) {
+            int countStudents = studentController.getAllStudents().size();
+            lblTotalStudents.setText(String.valueOf(countStudents));
+        }
+        if (teacherController != null) {
+            int countTeachers = teacherController.getAllTeachers().size();
+            lblTotalTeachers.setText(String.valueOf(countTeachers));
+        }
+        if (disciplineController != null) {
+            int countDisciplines = disciplineController.getAllDisciplines().size();
+            lblTotalDisciplines.setText(String.valueOf(countDisciplines));
+        }
+        this.revalidate();
+        this.repaint();
     }
 
     /**

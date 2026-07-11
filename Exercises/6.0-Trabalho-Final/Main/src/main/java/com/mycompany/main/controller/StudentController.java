@@ -12,6 +12,9 @@ import com.mycompany.main.model.validations.ValidateStudent;
 // Exception
 import com.mycompany.main.model.exceptions.StudentException;
 
+// List
+import java.util.List;
+
 /**
  *
  * @author guilh
@@ -75,6 +78,16 @@ public class StudentController {
         } catch (Exception e) {
             System.out.println("Erro: não foi possível encontrar o estudante pelo ID");
             System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    // Find all
+    public List<Student> getAllStudents() {
+        try {
+            return repository.findAll();
+        } catch (Exception ex) {
+            System.out.println("Error ao buscar todos os alunos");
         }
         return null;
     }

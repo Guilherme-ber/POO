@@ -12,6 +12,9 @@ import com.mycompany.main.model.exceptions.TeacherException;
 // Validations
 import com.mycompany.main.model.validations.ValidateTeacher;
 
+// Utils
+import java.util.List;
+
 /**
  *
  * @author guilh
@@ -77,6 +80,16 @@ public class TeacherController {
         } catch (Exception e) {
             System.out.println("Erro: não foi possível encontrar o professor pelo ID");
             System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    // Find all
+    public List<Teacher> getAllTeachers() {
+        try {
+            return repository.findAll();
+        } catch (Exception ex) {
+            System.out.println("Error ao buscar todos os alunos");
         }
         return null;
     }

@@ -77,4 +77,14 @@ public class DisciplineController {
         }
         return null;
     }
+    
+    // Find all
+    public List<Discipline> getAllDisciplines() {
+        try {
+            return repository.findAll();
+        } catch (Exception ex) {
+            System.out.println("Error ao buscar todos os alunos");
+        }
+        return null;
+    }
 }

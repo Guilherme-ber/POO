@@ -1,232 +1,295 @@
 package com.mycompany.main.view;
 
-import com.mycompany.main.model.entities.Student;
-import com.mycompany.main.view.tableModel.TMStudent;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+// Entities/Models
+import com.mycompany.main.model.entities.Student;
+import com.mycompany.main.view.tableModel.TMStudent;
+import com.mycompany.main.controller.StudentController;
 
 /**
- *
+ * Students panel
  * @author guilh
  */
 public class PnlStudents extends javax.swing.JPanel {
-// Componentes da Tabela (Lado Esquerdo - Master)
+    private boolean editing = false;
+    private StudentController controller;
+    private List<Student> studentList;
     private JTable grdStudents;
     private TMStudent tmStudent;
     private JTextField txtSearch;
     private JLabel lblTotalCount;
-
-    // Componentes do Formulário (Lado Direito - Detail)
+    private JTextField txtId;
     private JTextField txtName;
     private JTextField txtCpf;
+    private JComboBox<String> cbSex;
+    private JTextField txtAge;
     private JTextField txtRegistration;
     private JTextField txtEntryYear;
-    private JTextField txtAge;
-    private JComboBox<String> cbSex;
-
-    // Botões de Ação
     private JButton btnNew;
     private JButton btnSave;
     private JButton btnDelete;
     private JButton btnCancel;
 
     public PnlStudents() {
-        initComponents(); // Mantém a chamada do NetBeans intacta
-        initCustomLayout(); // Nosso layout customizado e limpo
-        loadInitialData();  // Carrega os dados na tabela
+        this.studentList = new ArrayList<>();
+        initComponentsCustom();
+        setupListeners();
+        setFormEnabled(false);
     }
 
-    private void initCustomLayout() {
-        // 1. Configuração do Painel Principal
+    public void initController(StudentController controller) {
+        this.controller = controller;
+        updateTable();
+    }
+
+    private void initComponentsCustom() {
         this.setLayout(new BorderLayout(15, 15));
-        this.setBorder(new EmptyBorder(15, 15, 15, 15)); // Padding externo da tela
+        this.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        // ====================================================================
-        // LADO ESQUERDO: TABELA E PESQUISA (MASTER)
-        // ====================================================================
         JPanel pnlMaster = new JPanel(new BorderLayout(10, 10));
-
-        // Topo da Esquerda: Barra de Pesquisa
-        JPanel pnlSearch = new JPanel(new BorderLayout(5, 0));
-        txtSearch = new JTextField();
-        txtSearch.putClientProperty("JTextField.placeholderText", "🔍 Pesquisar aluno por nome ou matrícula...");
-        txtSearch.putClientProperty("JTextField.showClearButton", true); // Botão 'X' nativo do FlatLaf
-        txtSearch.setPreferredSize(new Dimension(0, 35));
-        pnlSearch.add(txtSearch, BorderLayout.CENTER);
-
-        // Centro da Esquerda: Tabela de Alunos
-        grdStudents = new JTable();
-        grdStudents.setRowHeight(28); // Linhas mais altas para um visual moderno
-        grdStudents.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        grdStudents.getTableHeader().setReorderingAllowed(false);
+        Dimension inputSize = new Dimension(150, 5);
         
-        // Evento: Quando clicar em uma linha da tabela, preenche o formulário
-        grdStudents.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                fillFormFromSelectedRow();
-            }
-        });
-
-        JScrollPane scrollTable = new JScrollPane(grdStudents);
-        scrollTable.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
-
-        // Rodapé da Esquerda: Contador de registros
-        lblTotalCount = new JLabel("Total: 0 aluno(s) registrado(s).");
-        lblTotalCount.setFont(new Font("Segoe UI", Font.BOLD, 12));
-
+        JPanel pnlSearch = new JPanel(new BorderLayout(5, 0));
+        pnlSearch.add(new JLabel("Pesquisar Aluno: "), BorderLayout.WEST);
+        txtSearch = new JTextField();
+        pnlSearch.add(txtSearch, BorderLayout.CENTER);
         pnlMaster.add(pnlSearch, BorderLayout.NORTH);
+
+        tmStudent = new TMStudent(studentList);
+        grdStudents = new JTable(tmStudent);
+        grdStudents.setRowHeight(26);
+        grdStudents.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        JScrollPane scrollTable = new JScrollPane(grdStudents);
         pnlMaster.add(scrollTable, BorderLayout.CENTER);
+
+        lblTotalCount = new JLabel("Total de alunos: 0");
+        lblTotalCount.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         pnlMaster.add(lblTotalCount, BorderLayout.SOUTH);
 
-        // ====================================================================
-        // LADO DIREITO: FORMULÁRIO DE CADASTRO (DETAIL)
-        // ====================================================================
         JPanel pnlDetail = new JPanel(new BorderLayout(10, 10));
-        pnlDetail.setPreferredSize(new Dimension(340, 0)); // Largura fixa de 340px para o formulário
         pnlDetail.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(new Color(180, 180, 180)), 
-                " DETALHES DO REGISTRO ", 
-                0, 0, new Font("Segoe UI", Font.BOLD, 13)
+            BorderFactory.createEtchedBorder(), "Dados do Aluno", TitledBorder.LEFT, TitledBorder.TOP,
+            new Font("Segoe UI", Font.BOLD, 14)
         ));
+        pnlDetail.setPreferredSize(new Dimension(360, 0));
 
-        // Campos do Formulário usando GridBagLayout para alinhamento perfeito
-        JPanel pnlFormFields = new JPanel(new GridBagLayout());
-        pnlFormFields.setBorder(new EmptyBorder(15, 15, 15, 15));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 0, 5, 0); // Espaçamento vertical entre os campos
-        gbc.weightx = 1.0;
+        JPanel pnlForm = new JPanel(new GridLayout(7, 2, 8, 12));
+        pnlForm.setBorder(new EmptyBorder(15, 15, 5, 15));
 
-        // Instanciando os campos
+        pnlForm.add(new JLabel("ID (Auto ou Manual):"));
+        txtId = new JTextField();
+        txtId.setPreferredSize(inputSize);
+        pnlForm.add(txtId);
+
+        pnlForm.add(new JLabel("Nome Completo:"));
         txtName = new JTextField();
+        txtName.setPreferredSize(inputSize);
+        pnlForm.add(txtName);
+
+        pnlForm.add(new JLabel("CPF:"));
         txtCpf = new JTextField();
-        txtRegistration = new JTextField();
-        txtEntryYear = new JTextField();
+        txtCpf.setPreferredSize(inputSize);
+        pnlForm.add(txtCpf);
+
+        pnlForm.add(new JLabel("Sexo:"));
+        cbSex = new JComboBox<>(new String[]{"Masculino", "Feminino"});
+        cbSex.setPreferredSize(inputSize);
+        pnlForm.add(cbSex);
+
+        pnlForm.add(new JLabel("Idade:"));
         txtAge = new JTextField();
-        cbSex = new JComboBox<>(new String[]{"M", "F", "Outro"});
+        txtAge.setPreferredSize(inputSize);
+        pnlForm.add(txtAge);
 
-        // Placeholders elegantes via FlatLaf
-        txtName.putClientProperty("JTextField.placeholderText", "Ex: João da Silva");
-        txtCpf.putClientProperty("JTextField.placeholderText", "000.000.000-00");
-        txtRegistration.putClientProperty("JTextField.placeholderText", "2026001");
-        txtEntryYear.putClientProperty("JTextField.placeholderText", "2026");
-        txtAge.putClientProperty("JTextField.placeholderText", "Ex: 18");
+        pnlForm.add(new JLabel("Matrícula:"));
+        txtRegistration = new JTextField();
+        txtRegistration.setPreferredSize(inputSize);
+        pnlForm.add(txtRegistration);
 
-        // Adicionando os campos na coluna direita (empilhados)
-        addFormField(pnlFormFields, "Nome Completo:", txtName, gbc, 0);
-        addFormField(pnlFormFields, "CPF:", txtCpf, gbc, 2);
-        addFormField(pnlFormFields, "Matrícula:", txtRegistration, gbc, 4);
-        addFormField(pnlFormFields, "Ano de Entrada:", txtEntryYear, gbc, 6);
-        addFormField(pnlFormFields, "Sexo:", cbSex, gbc, 8);
-        addFormField(pnlFormFields, "Idade:", txtAge, gbc, 10);
+        pnlForm.add(new JLabel("Ano de Entrada:"));
+        txtEntryYear = new JTextField();
+        txtEntryYear.setPreferredSize(inputSize);
+        pnlForm.add(txtEntryYear);
 
-        // Painel de Botões (Rodapé do Formulário)
-        JPanel pnlButtons = new JPanel(new GridLayout(2, 2, 8, 8)); // Grid 2x2 com espaçamento de 8px
-        pnlButtons.setBorder(new EmptyBorder(10, 15, 15, 15));
+        pnlDetail.add(pnlForm, BorderLayout.CENTER);
+
+        JPanel pnlActions = new JPanel(new GridLayout(2, 2, 10, 10));
+        pnlActions.setBorder(new EmptyBorder(10, 15, 15, 15));
+        pnlActions.setPreferredSize(new Dimension(0, 95));
 
         btnNew = new JButton("+ Novo");
         btnSave = new JButton("💾 Salvar");
         btnDelete = new JButton("🗑️ Excluir");
         btnCancel = new JButton("❌ Cancelar");
 
-        // Estilizando botão Salvar como destaque (FlatLaf)
-        btnSave.putClientProperty("JButton.buttonType", "roundRect");
-        btnSave.setBackground(new Color(40, 130, 220));
-        btnSave.setForeground(Color.WHITE);
-        btnDelete.setForeground(new Color(200, 50, 50)); // Texto vermelho no excluir
+        pnlActions.add(btnNew);
+        pnlActions.add(btnSave);
+        pnlActions.add(btnDelete);
+        pnlActions.add(btnCancel);
 
-        pnlButtons.add(btnNew);
-        pnlButtons.add(btnSave);
-        pnlButtons.add(btnDelete);
-        pnlButtons.add(btnCancel);
+        pnlDetail.add(pnlActions, BorderLayout.SOUTH);
 
-        // Montando o Lado Direito
-        pnlDetail.add(pnlFormFields, BorderLayout.NORTH);
-        pnlDetail.add(pnlButtons, BorderLayout.SOUTH);
-
-        // ====================================================================
-        // ADICIONANDO AS DUAS COLUNAS NA TELA PRINCIPAL
-        // ====================================================================
         this.add(pnlMaster, BorderLayout.CENTER);
         this.add(pnlDetail, BorderLayout.EAST);
-
-        // Configurando eventos dos botões
-        setupActions();
     }
 
-    // Método auxiliar para adicionar labels e inputs de forma limpa
-    private void addFormField(JPanel panel, String labelText, JComponent field, GridBagConstraints gbc, int row) {
-        gbc.gridy = row;
-        JLabel label = new JLabel(labelText);
-        label.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        panel.add(label, gbc);
+    private void setupListeners() {
+        grdStudents.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && grdStudents.getSelectedRow() != -1) {
+                fillFormFromSelectedRow();
+                setFormEnabled(true);
+                txtId.setEnabled(false);
+                editing = true;
+            }
+        });
 
-        gbc.gridy = row + 1;
-        field.setPreferredSize(new Dimension(0, 30)); // Altura padrão para todos os inputs
-        panel.add(field, gbc);
-    }
-
-    private void setupActions() {
-        btnNew.addActionListener(e -> clearForm());
-        
-        btnCancel.addActionListener(e -> {
+        btnNew.addActionListener(e -> {
             clearForm();
+            setFormEnabled(true);
+            txtId.setEnabled(true);
+            txtId.setText(String.valueOf(generateNextId()));
+            txtName.requestFocus();
+            editing = false;
             grdStudents.clearSelection();
         });
 
-        // Aqui você chamará o seu StudentController no futuro!
         btnSave.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Funcionalidade de salvar será ligada ao Controller!");
+            if (!validateFields()) return;
+            try {
+                int id = Integer.parseInt(txtId.getText().trim());
+                String name = txtName.getText().trim();
+                String cpf = txtCpf.getText().trim();
+                char sex = cbSex.getSelectedIndex() == 0 ? 'M' : 'F';
+                int age = Integer.parseInt(txtAge.getText().trim());
+                String reg = txtRegistration.getText().trim();
+                int year = Integer.parseInt(txtEntryYear.getText().trim());
+
+                if (controller != null) {
+                    if (editing) {
+                        controller.updateStudent(id, name, sex, age, cpf, reg, year);
+                        JOptionPane.showMessageDialog(this, "Aluno atualizado com sucesso!");
+                    } else {
+                        if (idExists(id)) {
+                            JOptionPane.showMessageDialog(this, "O ID " + id + " já está em uso!", "Erro de ID", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        controller.addStudent(id, name, sex, age, cpf, reg, year);
+                        JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
+                    }
+                    updateTable();
+                    clearForm();
+                    setFormEnabled(false);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Verifique se ID, Idade e Ano são apenas números válidos.", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         btnDelete.addActionListener(e -> {
-            if (grdStudents.getSelectedRow() != -1) {
-                JOptionPane.showMessageDialog(this, "Funcionalidade de exclusão será ligada ao Controller!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Selecione um aluno na tabela para excluir.", "Atenção", JOptionPane.WARNING_MESSAGE);
+            int selectedRow = grdStudents.getSelectedRow();
+            if (selectedRow == -1) return;
+            if (JOptionPane.showConfirmDialog(this, "Deseja excluir este aluno?", "Excluir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                int id = (int) tmStudent.getValueAt(selectedRow, 0);
+                controller.removeStudent(id);
+                updateTable();
+                clearForm();
+                setFormEnabled(false);
             }
         });
+
+        btnCancel.addActionListener(e -> {
+            clearForm();
+            setFormEnabled(false);
+            grdStudents.clearSelection();
+            editing = false;
+        });
+
+        txtSearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) { filterTable(txtSearch.getText().trim()); }
+        });
+    }
+
+    private int generateNextId() {
+        int maxId = 0;
+        for (Student s : studentList) {
+            if (s.getId() > maxId) maxId = s.getId();
+        }
+        return maxId + 1;
+    }
+
+    private boolean idExists(int id) {
+        for (Student s : studentList) {
+            if (s.getId() == id) return true;
+        }
+        return false;
     }
 
     private void fillFormFromSelectedRow() {
         int row = grdStudents.getSelectedRow();
         if (row != -1) {
-            // Pega os dados da tabela via TableModel (Colunas na ordem que você definiu no TMStudent)
-            txtName.setText(grdStudents.getValueAt(row, 1).toString());
-            cbSex.setSelectedItem(grdStudents.getValueAt(row, 2).toString());
-            txtAge.setText(grdStudents.getValueAt(row, 3).toString());
-            txtCpf.setText(grdStudents.getValueAt(row, 4).toString());
-            txtRegistration.setText(grdStudents.getValueAt(row, 5).toString());
-            txtEntryYear.setText(grdStudents.getValueAt(row, 6).toString());
+            txtId.setText(String.valueOf(tmStudent.getValueAt(row, 0)));
+            txtName.setText(String.valueOf(tmStudent.getValueAt(row, 1)));
+            char sex = (char) tmStudent.getValueAt(row, 2);
+            cbSex.setSelectedIndex((sex == 'M' || sex == 'm') ? 0 : 1);
+            txtAge.setText(String.valueOf(tmStudent.getValueAt(row, 3)));
+            txtCpf.setText(String.valueOf(tmStudent.getValueAt(row, 4)));
+            txtRegistration.setText(String.valueOf(tmStudent.getValueAt(row, 5)));
+            txtEntryYear.setText(String.valueOf(tmStudent.getValueAt(row, 6)));
+        }
+    }
+
+    private boolean validateFields() {
+        if (txtId.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() ||
+            txtCpf.getText().trim().isEmpty() || txtAge.getText().trim().isEmpty() ||
+            txtRegistration.getText().trim().isEmpty() || txtEntryYear.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Atenção", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public void updateTable() {
+        if (controller != null && tmStudent != null) {
+            this.studentList = controller.getAllStudents();
+            tmStudent.updateList(this.studentList);
+            lblTotalCount.setText("Total de alunos: " + studentList.size());
+        }
+    }
+
+    private void filterTable(String query) {
+        if (query.isEmpty()) {
+            tmStudent.updateList(studentList);
+        } else {
+            List<Student> filtered = new ArrayList<>();
+            for (Student s : studentList) {
+                if (s.getName().toLowerCase().contains(query.toLowerCase()) || s.getCpf().contains(query) || s.getRegistration().contains(query)) {
+                    filtered.add(s);
+                }
+            }
+            tmStudent.updateList(filtered);
         }
     }
 
     private void clearForm() {
-        txtName.setText("");
-        txtCpf.setText("");
-        txtRegistration.setText("");
-        txtEntryYear.setText("");
-        txtAge.setText("");
+        txtId.setText(""); txtName.setText(""); txtCpf.setText("");
+        txtAge.setText(""); txtRegistration.setText(""); txtEntryYear.setText("");
         cbSex.setSelectedIndex(0);
-        txtName.requestFocus(); // Joga o cursor piscando para o campo Nome
     }
 
-    private void loadInitialData() {
-        // Inicializa a tabela com uma lista vazia (ou dados de teste)
-        List<Student> listaInicial = new ArrayList<>();
-        
-        // Exemplo de dado mockado só para você ver a tabela preenchida na tela:
-        listaInicial.add(new Student(1, "Guilherme Silva", 'M', 20, "111.222.333-44", "2026001", 2026));
-        listaInicial.add(new Student(2, "Ana Souza", 'F', 19, "555.666.777-88", "2026002", 2026));
-
-        tmStudent = new TMStudent(listaInicial);
-        grdStudents.setModel(tmStudent);
-        
-        // Atualiza o contador do rodapé
-        lblTotalCount.setText("Total: " + listaInicial.size() + " aluno(s) registrado(s).");
+    private void setFormEnabled(boolean enabled) {
+        txtId.setEnabled(enabled); txtName.setEnabled(enabled); txtCpf.setEnabled(enabled);
+        cbSex.setEnabled(enabled); txtAge.setEnabled(enabled); txtRegistration.setEnabled(enabled);
+        txtEntryYear.setEnabled(enabled); btnSave.setEnabled(enabled); btnCancel.setEnabled(enabled);
+        btnDelete.setEnabled(grdStudents.getSelectedRow() != -1);
     }
 
     /**

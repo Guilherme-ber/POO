@@ -30,7 +30,7 @@
                   <Group type="102" attributes="0">
                       <Component id="lateralPanel" min="-2" pref="123" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="centralPanel" pref="559" max="32767" attributes="0"/>
+                      <Component id="centralPanel" pref="764" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -45,7 +45,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lateralPanel" max="32767" attributes="0"/>
-                  <Component id="centralPanel" max="32767" attributes="0"/>
+                  <Component id="centralPanel" pref="534" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -195,21 +195,21 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.main.view.PnlStudents" name="pnlStudents1">
+        <Component class="com.mycompany.main.view.PnlStudents" name="pnlStudents">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="cardStudent"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.main.view.PnlTeachers" name="pnlTeachers1">
+        <Component class="com.mycompany.main.view.PnlTeachers" name="pnlTeachers">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="cardTeacher"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.mycompany.main.view.PnlDisciplines" name="pnlDisciplines1">
+        <Component class="com.mycompany.main.view.PnlDisciplines" name="pnlDisciplines">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="cardDiscipline"/>

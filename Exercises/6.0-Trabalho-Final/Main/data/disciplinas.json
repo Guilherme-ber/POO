@@ -1,0 +1,1 @@
+[{"id":1,"name":"Teste","semester":1,"time":"1","teacher":{"id":1,"name":"Teste","sex":"M","age":15,"cpf":"1"},"studentList":[{"id":1,"name":"Teste","sex":"M","age":15,"cpf":"1","registration":"1","entryYear":2025}]}]
