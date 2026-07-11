@@ -1,8 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.main.view;
+
+// Table Model
+import com.mycompany.main.view.tableModel.TMStudent;
+
+// Controller
+import com.mycompany.main.controller.StudentController;
 
 /**
  *
@@ -19,6 +21,11 @@ public class FrHome extends javax.swing.JFrame {
         initComponents();
     }
 
+    /* public void updateTableStudent() {
+        tmStudent = new TMStudent(StudentController);
+        grdStudent.setModel(tmStudent);
+    } */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,15 +37,16 @@ public class FrHome extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         lateralPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JButton();
+        btnStudents = new javax.swing.JButton();
         btnTeachers = new javax.swing.JButton();
         btnDisciplines = new javax.swing.JButton();
-        btnStudents = new javax.swing.JButton();
         centralPanel = new javax.swing.JPanel();
         pnlDashboard = new com.mycompany.main.view.PnlDashboard();
-        pnlStudents = new com.mycompany.main.view.PnlStudents();
-        pnlTeachers = new com.mycompany.main.view.PnlTeachers();
-        pnlDisciplines = new com.mycompany.main.view.PnlDisciplines();
+        pnlStudents1 = new com.mycompany.main.view.PnlStudents();
+        pnlTeachers1 = new com.mycompany.main.view.PnlTeachers();
+        pnlDisciplines1 = new com.mycompany.main.view.PnlDisciplines();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,65 +62,49 @@ public class FrHome extends javax.swing.JFrame {
         lblTitle.setInheritsPopupMenu(false);
 
         lateralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lateralPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setText("---- Menu ----");
+        lateralPanel.add(jLabel1);
+
+        btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDashboard.setText("Dashboard");
+        btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDashboard.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnDashboard.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnDashboard.setPreferredSize(new java.awt.Dimension(100, 30));
         btnDashboard.addActionListener(this::btnDashboardActionPerformed);
         lateralPanel.add(btnDashboard);
 
+        btnStudents.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnStudents.setText("Alunos");
+        btnStudents.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStudents.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnStudents.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnStudents.addActionListener(this::btnStudentsActionPerformed);
+        lateralPanel.add(btnStudents);
+
+        btnTeachers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTeachers.setText("Professores");
+        btnTeachers.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTeachers.setPreferredSize(new java.awt.Dimension(100, 30));
         btnTeachers.addActionListener(this::btnTeachersActionPerformed);
         lateralPanel.add(btnTeachers);
 
+        btnDisciplines.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDisciplines.setText("Disciplinas");
+        btnDisciplines.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDisciplines.setPreferredSize(new java.awt.Dimension(100, 30));
         btnDisciplines.addActionListener(this::btnDisciplinesActionPerformed);
         lateralPanel.add(btnDisciplines);
-
-        btnStudents.setText("Alunos");
-        btnStudents.addActionListener(this::btnStudentsActionPerformed);
-        lateralPanel.add(btnStudents);
 
         centralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         centralPanel.setLayout(new java.awt.CardLayout());
         centralPanel.add(pnlDashboard, "cardDashboard");
-
-        javax.swing.GroupLayout pnlStudentsLayout = new javax.swing.GroupLayout(pnlStudents);
-        pnlStudents.setLayout(pnlStudentsLayout);
-        pnlStudentsLayout.setHorizontalGroup(
-            pnlStudentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
-        );
-        pnlStudentsLayout.setVerticalGroup(
-            pnlStudentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
-        );
-
-        centralPanel.add(pnlStudents, "cardStudent");
-
-        javax.swing.GroupLayout pnlTeachersLayout = new javax.swing.GroupLayout(pnlTeachers);
-        pnlTeachers.setLayout(pnlTeachersLayout);
-        pnlTeachersLayout.setHorizontalGroup(
-            pnlTeachersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
-        );
-        pnlTeachersLayout.setVerticalGroup(
-            pnlTeachersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
-        );
-
-        centralPanel.add(pnlTeachers, "cardTeacher");
-
-        javax.swing.GroupLayout pnlDisciplinesLayout = new javax.swing.GroupLayout(pnlDisciplines);
-        pnlDisciplines.setLayout(pnlDisciplinesLayout);
-        pnlDisciplinesLayout.setHorizontalGroup(
-            pnlDisciplinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
-        );
-        pnlDisciplinesLayout.setVerticalGroup(
-            pnlDisciplinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
-        );
-
-        centralPanel.add(pnlDisciplines, "cardDiscipline");
+        centralPanel.add(pnlStudents1, "cardStudent");
+        centralPanel.add(pnlTeachers1, "cardTeacher");
+        centralPanel.add(pnlDisciplines1, "cardDiscipline");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,9 +115,9 @@ public class FrHome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lateralPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(292, 292, 292)
-                        .addComponent(centralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lateralPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(centralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -171,11 +163,12 @@ public class FrHome extends javax.swing.JFrame {
     private javax.swing.JButton btnStudents;
     private javax.swing.JButton btnTeachers;
     private javax.swing.JPanel centralPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel lateralPanel;
     private javax.swing.JLabel lblTitle;
     private com.mycompany.main.view.PnlDashboard pnlDashboard;
-    private com.mycompany.main.view.PnlDisciplines pnlDisciplines;
-    private com.mycompany.main.view.PnlStudents pnlStudents;
-    private com.mycompany.main.view.PnlTeachers pnlTeachers;
+    private com.mycompany.main.view.PnlDisciplines pnlDisciplines1;
+    private com.mycompany.main.view.PnlStudents pnlStudents1;
+    private com.mycompany.main.view.PnlTeachers pnlTeachers1;
     // End of variables declaration//GEN-END:variables
 }
