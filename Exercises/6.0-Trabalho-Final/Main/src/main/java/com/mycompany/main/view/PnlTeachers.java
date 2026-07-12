@@ -56,6 +56,7 @@ public class PnlTeachers extends javax.swing.JPanel {
         JPanel pnlSearch = new JPanel(new BorderLayout(5, 0));
         pnlSearch.add(new JLabel("Pesquisar Professor: "), BorderLayout.WEST);
         txtSearch = new JTextField();
+        txtSearch.putClientProperty("JTextField.placeholderText", "Pesquisar por nome ou CPF...");
         pnlSearch.add(txtSearch, BorderLayout.CENTER);
         pnlMaster.add(pnlSearch, BorderLayout.NORTH);
 

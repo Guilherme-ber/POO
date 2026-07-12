@@ -56,51 +56,60 @@ public class FrHome extends javax.swing.JFrame {
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/graduation-cap.png"))); // NOI18N
         lblTitle.setText("Sistema de Gerenciamento Escolar");
         lblTitle.setToolTipText("");
-        lblTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         lblTitle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblTitle.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblTitle.setIconTextGap(10);
         lblTitle.setInheritsPopupMenu(false);
 
-        lateralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lateralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         lateralPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setText("---- Menu ----");
+        jLabel1.setText("------ Menu ------");
         lateralPanel.add(jLabel1);
 
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
         btnDashboard.setText("Dashboard");
         btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDashboard.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnDashboard.setIconTextGap(5);
         btnDashboard.setMaximumSize(new java.awt.Dimension(100, 30));
         btnDashboard.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnDashboard.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnDashboard.setPreferredSize(new java.awt.Dimension(125, 30));
         btnDashboard.addActionListener(this::btnDashboardActionPerformed);
         lateralPanel.add(btnDashboard);
 
         btnStudents.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnStudents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user-graduate.png"))); // NOI18N
         btnStudents.setText("Alunos");
         btnStudents.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStudents.setIconTextGap(5);
         btnStudents.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnStudents.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnStudents.setPreferredSize(new java.awt.Dimension(125, 30));
         btnStudents.addActionListener(this::btnStudentsActionPerformed);
         lateralPanel.add(btnStudents);
 
         btnTeachers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTeachers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/workshop.png"))); // NOI18N
         btnTeachers.setText("Professores");
         btnTeachers.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTeachers.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnTeachers.setIconTextGap(5);
+        btnTeachers.setPreferredSize(new java.awt.Dimension(125, 30));
         btnTeachers.addActionListener(this::btnTeachersActionPerformed);
         lateralPanel.add(btnTeachers);
 
         btnDisciplines.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDisciplines.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-open-cover.png"))); // NOI18N
         btnDisciplines.setText("Disciplinas");
         btnDisciplines.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDisciplines.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnDisciplines.setIconTextGap(5);
+        btnDisciplines.setPreferredSize(new java.awt.Dimension(125, 30));
         btnDisciplines.addActionListener(this::btnDisciplinesActionPerformed);
         lateralPanel.add(btnDisciplines);
 
-        centralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        centralPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         centralPanel.setLayout(new java.awt.CardLayout());
         centralPanel.add(pnlDashboard, "cardDashboard");
         centralPanel.add(pnlStudents, "cardStudent");
@@ -116,9 +125,9 @@ public class FrHome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lateralPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lateralPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(centralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)))
+                        .addComponent(centralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,7 +135,7 @@ public class FrHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lateralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(centralPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE))

@@ -1,5 +1,9 @@
 package com.mycompany.main;
 
+// Modern visual plugin
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 // SQLite
 import com.mycompany.main.connection.DatabaseConnection;
 import java.sql.Connection;
@@ -16,6 +20,10 @@ import com.mycompany.main.model.dao.*;
 
 public class Main {
     public static void main(String[] args) {
+        // Modern visual plugin
+        FlatLightLaf.setup(); // Light mode
+        // com.formdev.flatlaf.FlatDarkLaf.setup(); // Dark mode
+        
         // Save with SQLite
         Connection connection = null;
         try {

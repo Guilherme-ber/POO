@@ -68,6 +68,7 @@ public class PnlDisciplines extends javax.swing.JPanel {
         JPanel pnlSearch = new JPanel(new BorderLayout(5, 0));
         pnlSearch.add(new JLabel("Pesquisar Disciplina: "), BorderLayout.WEST);
         txtSearch = new JTextField();
+        txtSearch.putClientProperty("JTextField.placeholderText", "Pesquisar por nome...");
         pnlSearch.add(txtSearch, BorderLayout.CENTER);
         pnlMaster.add(pnlSearch, BorderLayout.NORTH);
 
